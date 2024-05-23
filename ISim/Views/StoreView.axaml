@@ -1,0 +1,20 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="ISim.Views.StoreView">
+	<Grid Background="#303030">
+		<Grid.RowDefinitions>
+			<RowDefinition/>
+			<RowDefinition/>
+		</Grid.RowDefinitions>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition/>
+		</Grid.ColumnDefinitions>
+		<TextBlock FontSize="32" Foreground="#55bb00">Store</TextBlock>
+		<WrapPanel Grid.Row="1"  HorizontalAlignment="Center" Orientation="Horizontal">
+			
+		</WrapPanel>
+	</Grid>
+</UserControl>

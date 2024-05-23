@@ -1,0 +1,178 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Comment CommentText="Schematic and SubSchematics list's of the object Bus, Wire, Pin, Component, IOComponent , IOUserInterface.">
+    <Position X="0.968" Y="1.243" Height="0.715" Width="2.809" />
+  </Comment>
+  <Class Name="CPU_Sim.SchematicEditor.Class.Bus&lt;T&gt;" Collapsed="true">
+    <Position X="0.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAMBAAAAAAAQAIAAAAAAAAAAAAAAgCAAEAAA=</HashCode>
+      <FileName>SchematicEditor\Class\Bus.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CPU_Sim.SchematicEditor.Class.Graphic" Collapsed="true">
+    <Position X="0.5" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SchematicEditor\Class\Graphic.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CPU_Sim.SchematicEditor.Class.IDProvider" Collapsed="true">
+    <Position X="5.75" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAIAAABAAAAAAAAAAAAAAAAkAIQARCACAAACAAYBAk=</HashCode>
+      <FileName>SchematicEditor\Class\IDProvider.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CPU_Sim.SchematicEditor.Class.Pin&lt;T&gt;" Collapsed="true">
+    <Position X="0.5" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAMBAAAAAAAQAAAAAAAAAAAAAAAAgAAQEAAA=</HashCode>
+      <FileName>SchematicEditor\Class\Pin.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CPU_Sim.SchematicEditor.Class.Schematic" Collapsed="true">
+    <Position X="0.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAEAAAAIAAgABCCAABIEAEEAAAAQAAAAAAAAAAI=</HashCode>
+      <FileName>SchematicEditor\Class\Schematic.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CPU_Sim.SchematicEditor.Class.SubSchematic" Collapsed="true">
+    <Position X="2.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAEAAAQIAAgABCCAABYEQEEAAAAQAAAAAAAAABI=</HashCode>
+      <FileName>SchematicEditor\Class\SubSchematic.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CPU_Sim.SchematicEditor.Class.Wire&lt;T&gt;" Collapsed="true">
+    <Position X="0.5" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAAMBAAAgAAAQAIAAAAAAEAAAAAAAgCAAEAAA=</HashCode>
+      <FileName>SchematicEditor\Class\Wire.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CPU_Sim.SchematicEditor.Model.ObjectData.Cathegory" Collapsed="true">
+    <Position X="7.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAIAAAAAAAAAAEAAAAAABAAAAAAAA=</HashCode>
+      <FileName>SchematicEditor\Model\ObjectData\Cathegory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CPU_Sim.SchematicEditor.Model.ObjectData.ObjectData" Collapsed="true">
+    <Position X="7.75" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAEAAAAgAAAAAAEAAAQAAAAAAAAAAQAAAAAAAAA=</HashCode>
+      <FileName>SchematicEditor\Model\ObjectData\ObjectData.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CPU_Sim.SchematicEditor.Model.Package.PackageInI" Collapsed="true">
+    <Position X="7.75" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAIAAAAgAAAABAAAAAAAAAAAAAAAAEAAAA=</HashCode>
+      <FileName>SchematicEditor\Model\Package\PackageInI.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CPU_Sim.SchematicEditor.Model.Project.ProjectInI" Collapsed="true">
+    <Position X="5.5" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAIAAAAAAAQAQAAAAAAAAAAAAQAAAAA=</HashCode>
+      <FileName>SchematicEditor\Model\Project\ProjectInI.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CPU_Sim.SchematicEditor.Model.Item" Collapsed="true">
+    <Position X="0.5" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAABAgAAAAAAAIBQAAAAAAAAICAAAAAEEAAI=</HashCode>
+      <FileName>SchematicEditor\Model\Item.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CPU_Sim.SchematicEditor.View.Menu.ObjectBrowser" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="7.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAEAAQAAAaEACgAQAAAAAAAAAAAAAAAEACgAAEA=</HashCode>
+      <FileName>SchematicEditor\View\Menu\ObjectBrowser.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="CPU_Sim.SchematicEditor.View.SchematicController" Collapsed="true">
+    <Position X="1.25" Y="2" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>ABCGAGCRIIAEATAABATSABUABBgAAAKAAAAuCAKBCgA=</HashCode>
+      <FileName>SchematicEditor\View\SchematicController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CPU_Sim.SchematicEditor.View.SchematicEditor" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="1.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAIAQAAAABARAAAAMEAJAkICBQEAABACAAGAAFCBDo=</HashCode>
+      <FileName>SchematicEditor\View\SchematicEditor.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="CPU_Sim.App" Collapsed="true">
+    <Position X="3.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>App.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CPU_Sim.MainWindow" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="5.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>MainWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Interface Name="CPU_Sim.SchematicEditor.Interface.Component">
+    <Position X="4.75" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IACAAAAAAEBAAAAAACQAAAAAAAAMAAAAAAAAAAAEAAA=</HashCode>
+      <FileName>SchematicEditor\Interface\Component.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="CPU_Sim.SchematicEditor.Interface.IOComponent" Collapsed="true">
+    <Position X="2.75" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SchematicEditor\Interface\IOComponent.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="CPU_Sim.SchematicEditor.Interface.IOUserInterface" Collapsed="true">
+    <Position X="2.75" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAQAAAABAAAAgAgAAAAAAAAAAAAAgAAAAAAAAA=</HashCode>
+      <FileName>SchematicEditor\Interface\IOUserInterface.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="CPU_Sim.SchematicEditor.Enum.Error.Error" Collapsed="true">
+    <Position X="5.5" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgEAAAA=</HashCode>
+      <FileName>SchematicEditor\Enum\Error\Error.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="CPU_Sim.SchematicEditor.Enum.Error.FileError" Collapsed="true">
+    <Position X="5.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gKAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAgEAEAA=</HashCode>
+      <FileName>SchematicEditor\Enum\Error\Error.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="CPU_Sim.SchematicEditor.Enum.SignalModes">
+    <Position X="0.5" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAEBAAIAEAAAA=</HashCode>
+      <FileName>SchematicEditor\Enum\SignalModes.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="CPU_Sim.SchematicEditor.Enum.SignalModesPins">
+    <Position X="2.75" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAAAAAAAAAAAAAAQAQAAAAAAAAQAAAEAAAAAAESIAA=</HashCode>
+      <FileName>SchematicEditor\Enum\SignalModes.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

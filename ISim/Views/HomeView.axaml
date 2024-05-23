@@ -1,0 +1,23 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" 
+			 xmlns:vm="clr-namespace:ISim.ViewModels"
+             x:Class="ISim.Views.HomeView">
+	<Grid Background="#303030">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="auto"/>
+			<RowDefinition Height="auto"/>
+			<RowDefinition Height="auto"/>
+			<RowDefinition Height="auto"/>
+		</Grid.RowDefinitions>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition/>
+		</Grid.ColumnDefinitions>
+		<TextBlock Grid.Row="0" Text="{Binding}"></TextBlock>
+		<TextBlock Grid.Row="1" Text="{Binding $self.Height}"></TextBlock>
+		<TextBlock Grid.Row="2" HorizontalAlignment="Center" FontSize="32" Foreground="#55bb00">Willkommen</TextBlock>
+		<Image Grid.Row="3" Width="{Binding $parent.Width}" Source="/Assets/Logos/ISim.png"></Image>
+	</Grid>
+</UserControl>

@@ -1,0 +1,31 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 Background="#303030"
+             x:Class="BoTech_AppStore.ViewModels.Pages.LoginView">
+	<Grid Margin="32" Background="#303030">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="auto"/>
+			<RowDefinition Height="auto"/>
+			<RowDefinition Height="auto"/>
+			<RowDefinition Height="auto"/>
+			<RowDefinition Height="auto"/>
+			<RowDefinition Height="auto"/>
+			<RowDefinition Height="auto"/>
+		</Grid.RowDefinitions>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="auto"/>
+		</Grid.ColumnDefinitions>
+		<TextBlock HorizontalAlignment="Center" FontSize="32" Foreground="#55bb00">Login</TextBlock>
+		<TextBlock Grid.Row="1" Foreground="#d0d0d0">E-Mail:</TextBlock>
+		<TextBox Grid.Row="2" Foreground="#d0d0d0" Watermark="E-Mail"></TextBox>
+		<TextBlock Grid.Row="3" Foreground="#d0d0d0">Password:</TextBlock>
+		<TextBox Grid.Row="4" Foreground="#d0d0d0" Watermark="Password"></TextBox>
+		<Button Grid.Row="5" HorizontalAlignment="Center" Foreground="#55bb00" FontSize="30">Login</Button>
+		<StackPanel Grid.Row="6" Orientation="Horizontal" HorizontalAlignment="Center">
+			<Button Foreground="Orange" FontSize="20">Passwort Vergessen?</Button>
+			<Button Foreground="DarkCyan" FontWeight="DemiBold" FontSize="20">New Account</Button>
+		</StackPanel>
+	</Grid>
+</UserControl>

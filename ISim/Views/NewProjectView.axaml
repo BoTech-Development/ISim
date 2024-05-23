@@ -1,0 +1,56 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" 
+			 xmlns:sys="clr-namespace:System;assembly=mscorlib"
+			 xmlns:vm="clr-namespace:ISim.ViewModels"
+             x:Class="ISim.Views.NewProjectView">
+	<Design.DataContext>
+		<vm:NewProjectViewModel/>
+	</Design.DataContext>
+	<Grid Background="#303030">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="auto"/>
+			<RowDefinition Height="auto" />
+			<RowDefinition Height="auto"/>
+			<RowDefinition Height="auto"/>
+			<RowDefinition Height="auto"/>
+			<RowDefinition Height="auto"/>
+		</Grid.RowDefinitions>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition/>
+		</Grid.ColumnDefinitions>
+		<TextBlock HorizontalAlignment="Center" FontSize="32" Foreground="#55bb00">Neues Project</TextBlock>
+		
+		
+		<StackPanel Margin="10" Grid.Row="1" HorizontalAlignment="Center" Orientation="Vertical" >
+			
+			<Button Foreground="Gray" Command="{Binding ButtonMenuCommand}">
+				<StackPanel Orientation="Vertical">
+					<TextBlock FontSize="20">Leeres Project</TextBlock>
+					<TextBlock FontSize="16">Beschreibung: Leeres Project</TextBlock>
+				</StackPanel>
+				<Button.CommandParameter>
+					<sys:Int32>0</sys:Int32>
+				</Button.CommandParameter>
+			</Button>
+			<Button Foreground="Gray" Command="{Binding ButtonMenuCommand}">
+				<StackPanel Orientation="Vertical">
+					<TextBlock FontSize="20">Kicad Project</TextBlock>
+					<TextBlock FontSize="16">Beschreibung: Ein Kicad kompatibles Project</TextBlock>
+				</StackPanel>
+				<Button.CommandParameter>
+					<sys:Int32>1</sys:Int32>
+				</Button.CommandParameter>
+			</Button>
+		</StackPanel>
+		<StackPanel Margin="5" Grid.Row="2" Orientation="Horizontal">
+			<TextBlock Foreground="#a1a1a1" Text="{Binding SolutionPath}"></TextBlock>
+			<Button Command="{Binding BrowseCommand}" HorizontalAlignment="Right">Browse</Button>
+		</StackPanel>
+		<TextBlock Grid.Row="3" Foreground="#a1a1a1" Text="{Binding SolutionType}"></TextBlock>
+		<TextBox Grid.Row="4" Text="{Binding SolutionName}"  Watermark="Project Name"></TextBox>
+		<Button Grid.Row="5" Command="{Binding CreateSolutionCommand}" HorizontalAlignment="Center">Create</Button>
+	</Grid>
+</UserControl>
