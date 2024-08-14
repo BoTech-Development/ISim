@@ -1,0 +1,81 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="ISim.Views.SchematicEditorWindow"
+		xmlns:sys="clr-namespace:System;assembly=mscorlib"
+		xmlns:vm="clr-namespace:ISim.ViewModels.SchematicEditor"
+		xmlns:controls="clr-namespace:ISim.ViewModels.SchematicEditor"
+        Title="ISim-SchematicEditor">
+	<Design.DataContext>
+		<vm:SchematicEditorWindowViewModel/>
+	</Design.DataContext>
+	<Window.Styles>
+		<Style Selector="Button">
+			<Setter Property="Background" Value="#353535"/>
+			<Setter Property="Foreground" Value="#a5a5a5"/>
+			<Setter Property="FontWeight" Value="Bold"/>
+			<Setter Property="HorizontalAlignment" Value="Center"/>
+		</Style>
+		<Style Selector="Menu">
+			<Setter Property="Background" Value="#252525"/>
+			<Setter Property="Foreground" Value="#a5a5a5"/>
+		</Style>
+	</Window.Styles>
+	<Grid Background="#1e1e1e">
+		
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="auto"/>
+			<ColumnDefinition />
+			<ColumnDefinition Width="auto"/>
+		</Grid.ColumnDefinitions>
+		
+		<ContentControl Grid.Column="0" Content="{Binding ObjectBrowser}"></ContentControl>
+		
+		<Grid Grid.Column="1">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="auto"></RowDefinition>
+				<RowDefinition ></RowDefinition>
+				<RowDefinition Height="auto"></RowDefinition>
+			</Grid.RowDefinitions>
+			<StackPanel>
+				<Menu DockPanel.Dock="Top">
+					<MenuItem Header="_File">
+						<MenuItem Header="_New">
+							<MenuItem Header="_Browse..."/>
+							<Separator></Separator>
+							<MenuItem Header="_Schematic"/>
+							<MenuItem Header="_Settings"/>
+							<MenuItem Header="_Simulation"/>
+						</MenuItem>
+						<Separator/>
+						<MenuItem Header="_Exit"/>
+					</MenuItem>
+					<MenuItem Header="_View">
+						<MenuItem Header="ObjectBrowser"/>
+						<MenuItem Header=""/>
+					</MenuItem>
+				</Menu>
+				<Button Command="{Binding HomePositionCommand}" >Home Position</Button>
+				<Button Command="{Binding DrawLineCommand}" >Draw Line</Button>
+			</StackPanel>
+
+			<Grid Grid.Row="1" x:Name="PaintControlGrid">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition/>
+				</Grid.ColumnDefinitions>
+				<Grid.RowDefinitions>
+					<RowDefinition></RowDefinition>
+				</Grid.RowDefinitions>
+
+				<controls:PaintControl DataContext="{Binding $parent.DataContext}"/>
+			
+			</Grid>
+		
+	
+			<TextBlock Grid.Row="2" FontSize="16" Foreground="Gray" Text="{Binding Zoom}"></TextBlock>
+
+		</Grid>
+	</Grid>
+</Window>

@@ -6,7 +6,7 @@ using ISim.ViewModels;
 using ISim.ViewModels.Loader;
 using ISim.ViewModels.SchematicEditor;
 using ISim.Views;
-using ISim.Views.SchematicEditor;
+
 using ReactiveUI;
 
 namespace ISim.ViewModels
@@ -65,12 +65,13 @@ namespace ISim.ViewModels
                     Content = new NewProjectViewModel();
                     break;
                 case 2:
-                    new SchematicEditorWindow(new SchematicEditorWindowViewModel(), this).Show();
+                   // new SchematicEditorWindow(new SchematicEditorWindowViewModel(), this).Show();
                     break;
                 case 3:
                     new Loading(new LoadingViewModel("Test")).Show();
                     break;
                 case 4:
+                    new SchematicEditorWindow(new SchematicEditorWindowViewModel()).Show();
                     Content = new SettingsViewModel();
                     break;
             }

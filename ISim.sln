@@ -13,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ISim.iOS", "ISim.iOS\ISim.i
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ISim.Browser", "ISim.Browser\ISim.Browser.csproj", "{D1F7536C-DC6D-49AC-BC90-7A1DA53322AD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InBuiltObjects", "InBuiltObjects\InBuiltObjects.csproj", "{4A68E0CD-08A1-465B-8691-A723CFE68B7A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -43,6 +45,10 @@ Global
 		{D1F7536C-DC6D-49AC-BC90-7A1DA53322AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D1F7536C-DC6D-49AC-BC90-7A1DA53322AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D1F7536C-DC6D-49AC-BC90-7A1DA53322AD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4A68E0CD-08A1-465B-8691-A723CFE68B7A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4A68E0CD-08A1-465B-8691-A723CFE68B7A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4A68E0CD-08A1-465B-8691-A723CFE68B7A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4A68E0CD-08A1-465B-8691-A723CFE68B7A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

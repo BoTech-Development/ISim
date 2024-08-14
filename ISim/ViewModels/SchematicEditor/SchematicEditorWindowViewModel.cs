@@ -1,6 +1,10 @@
-﻿using ReactiveUI;
+﻿using Avalonia;
+using Avalonia.Controls;
+using Avalonia.Media;
+using ReactiveUI;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Reactive;
 using System.Text;
@@ -14,13 +18,16 @@ namespace ISim.ViewModels.SchematicEditor
       //  public string namespaceToView { get; } = "ISim.Views.SchematicEditor.SchematicEditorWindow";
 
 
-        ViewModelBase content;
+        ObjectBrowserViewModel _objectBrowser;
 
-        public ViewModelBase Content
+        public ObjectBrowserViewModel ObjectBrowser
         {
-            get => content;
-            private set => this.RaiseAndSetIfChanged(ref content, value);
+            get => _objectBrowser;
+            private set => this.RaiseAndSetIfChanged(ref _objectBrowser, value);
         }
+
+
+
 
         private bool _isPaneOpen = true;
         public bool IsPaneOpen
@@ -64,22 +71,72 @@ namespace ISim.ViewModels.SchematicEditor
         }
 
 
-
-
-
-
         public ReactiveCommand<Unit, Unit> PaneMenuCommand { get; set; }
         public ReactiveCommand<int, Unit> ButtonMenuCommand { get; set; }
+        public ReactiveCommand<Unit, Unit> HomePositionCommand { get; set; }
+
+        public ReactiveCommand<Unit, Unit> DrawLineCommand { get; set; }
+
+        public PaintControl PaintControl { get; set; }
+
+        private int _zoom = 10;
+        public int Zoom
+        {
+            get => _zoom;
+            set => this.RaiseAndSetIfChanged(ref _zoom, value);
+        }
+
+
+
+
 
 
         public SchematicEditorWindowViewModel()
         {
-            Content = new HomeViewModel();
+            
             PaneMenuCommand = ReactiveCommand.Create(() => { IsPaneOpen = !IsPaneOpen; if (IsPaneOpen) { MenuOpenButtonWidth = 144; MenuMargin = 10; } else MenuOpenButtonWidth = 44; MenuMargin = 0; });
-            ButtonMenuCommand = ReactiveCommand.Create<int>(ShowPage);
+           // ButtonMenuCommand = ReactiveCommand.Create<int>(ShowPage);
+
+            Canvas myCanvas1 = new Canvas();
+            myCanvas1.Background = Brushes.Red;
+            myCanvas1.Height = 100;
+            myCanvas1.Width = 100;
+            Canvas.SetTop(myCanvas1, 0);
+            Canvas.SetLeft(myCanvas1, 0);
+
+            Canvas myCanvas2 = new Canvas();
+            myCanvas2.Background = Brushes.Green;
+            myCanvas2.Height = 100;
+            myCanvas2.Width = 100;
+            Canvas.SetTop(myCanvas2, 100);
+            Canvas.SetLeft(myCanvas2, 100);
+
+            Canvas myCanvas3 = new Canvas();
+            myCanvas3.Background = Brushes.Blue;
+            myCanvas3.Height = 100;
+            myCanvas3.Width = 100;
+            Canvas.SetTop(myCanvas3, 50);
+            Canvas.SetLeft(myCanvas3, 50);
+
+            // Add child elements to the Canvas' Children collection
+            /*Surface = new Canvas();
+
+            Surface.Children.Add(myCanvas1);
+            Surface.Children.Add(myCanvas2);
+            Surface.Children.Add(myCanvas3);
+            */
+
+            HomePositionCommand = ReactiveCommand.Create(() => { PaintControl.HomeScreen(); });
+            DrawLineCommand = ReactiveCommand.Create(() => { PaintControl.DrawNewLine(); });
         }
 
-        public void ShowPage(int pageID)
+
+        public void setObjectBrowser(ObjectBrowserViewModel objectBrowser)
+        {
+            this.ObjectBrowser = objectBrowser;
+        }
+
+       /* public void ShowPage(int pageID)
         {
             switch (pageID)
             {
@@ -99,11 +156,13 @@ namespace ISim.ViewModels.SchematicEditor
                     Content = new SettingsViewModel();
                     break;
             }
-        }
+        }*/
         
         public void OpenSolution(string path, string file)
         {
 
         }
+   
+        
     }
 }

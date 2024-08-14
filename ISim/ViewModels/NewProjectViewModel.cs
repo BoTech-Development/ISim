@@ -1,22 +1,16 @@
 ﻿using ISim.MainModels.Project;
 using ReactiveUI;
 using System.Reactive;
-using Avalonia.Controls;
 using Avalonia.Platform.Storage;
 using System.Collections.Generic;
-using System;
-using System.Text;
-using System.Threading.Tasks;
 using ISim.Services;
 using System.IO;
 using ISim.MainModels;
-using ISim.SchematicEditor.Class;
 using Newtonsoft.Json;
 using ISim.ViewModels.SchematicEditor;
-using ISim.Views.SchematicEditor;
-using Avalonia.Interactivity;
 using ISim.ViewModels.Loader;
 using ISim.Views;
+using ISim.SchematicEditor.Model;
 
 
 namespace ISim.ViewModels
@@ -100,9 +94,9 @@ namespace ISim.ViewModels
                 case 0:
                    // loadingViewModel.ListSubProgresses.Add(new ProgressBarDataTemplate("Creating Objects",))
                     CreateEmptyProject();
-                    SchematicEditorWindowViewModel schematicEditorWindowViewModel = new SchematicEditorWindowViewModel();
-                    SchematicEditorWindow schematicEditorWindow = new SchematicEditorWindow(schematicEditorWindowViewModel, this);
-                    schematicEditorWindow.Show();
+                   // SchematicEditorWindowViewModel schematicEditorWindowViewModel = new SchematicEditorWindowViewModel();
+                    //SchematicEditorWindow schematicEditorWindow = new SchematicEditorWindow(schematicEditorWindowViewModel, this);
+                   // schematicEditorWindow.Show();
                     //while (!schematicEditorWindow.IsLoaded) { }
                     //schematicEditorWindowViewModel.OpenSolution(SolutionPath,SolutionName);
                     break;
