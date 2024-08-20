@@ -1,17 +1,15 @@
 ﻿using Avalonia;
 using Avalonia.Controls;
-
 using Avalonia.Input;
-
 using Avalonia.Media;
-
+using DynamicData;
 using ISim.SchematicEditor.Graphic;
 using ISim.SchematicEditor.Simulation;
 using ISim.SchematicEditor.Standard;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics;
+
 
 /*
  * This Control is used to show all Graphical Components
@@ -57,11 +55,11 @@ namespace ISim.ViewModels.SchematicEditor
         [Description("This Property stores the old Mouse postion.")]
         private Point oldMousPosition;
 
+        [Description("All pins where the Wire can connect to.")]
+        private List<ADrawableComponent> connectablePins = new List<ADrawableComponent>();
 
 
-
-        //private List<ADrawableComponent> drawableComponents = new List<ADrawableComponent>();
-
+       
         public PaintControl()
         {
             //if(Parent != null)
@@ -108,7 +106,7 @@ namespace ISim.ViewModels.SchematicEditor
                 graphics.Add(new Graphic() { Geometry = new RectangleGeometry(new Rect(new Point(10, 10), new Point(40, 40))), LineColor = new Pen(new SolidColorBrush(Colors.Red)), FillColor = new SolidColorBrush(Colors.Orange) });
                 graphics.Add(new Graphic() { Geometry = new EllipseGeometry() { RadiusX = 10, RadiusY = 10, Center = new Point(25, 25) }, LineColor = new Pen(new SolidColorBrush(Colors.Blue)), FillColor = new SolidColorBrush(Colors.LightBlue) });
 
-                viewModel.Schematic.Components.Add(new TestGraphic("name", new TextBlock(), 0, true, false, new Point(0, 0), Colors.Red, Colors.Red, null, new List<IVisibleComponent>(), graphics));
+                viewModel.Schematic.Components.Add(new TestGraphic("name", new TextBlock(), 0, true, false, new Point(0, 0), 0, Colors.Red, Colors.Red, null, new List<IVisibleComponent>(), graphics));
 
 
                 string type = viewModel.Schematic.Components[0].GeometricObjects[0].Geometry.GetType().ToString();
@@ -116,12 +114,16 @@ namespace ISim.ViewModels.SchematicEditor
                 //Second Test Object
                 List<Graphic> graphics2 = new List<Graphic>();
                 graphics2.Add(new Graphic() { Geometry = new RectangleGeometry(new Rect(new Point(20, 20), new Point(80, 80))), LineColor = new Pen(new SolidColorBrush(Colors.Green)), FillColor = new SolidColorBrush(Colors.LightGreen) });
-                viewModel.Schematic.Components.Add(new TestGraphic("name", new TextBlock(), 0, true, false, new Point(0, 0), Colors.Green, Colors.Green, null, new List<IVisibleComponent>(), graphics2));
+                TestGraphic graphic = new TestGraphic("name", new TextBlock(), 0, true, false, new Point(0, 0), 0, Colors.Green, Colors.Green, null, new List<IVisibleComponent>(), graphics2);
+                Pin<bool> pin = new Pin<bool>("name", new TextBlock(), 0, true, false, new Point(20, 30), 180, Colors.Green, Colors.Green, null, new List<IVisibleComponent>(), new List<Graphic>());
+                pin.Init();
+                graphic.PinsBool.Add(pin);
+                viewModel.Schematic.SimulatableComponents.Add(graphic);
 
-
+                extractConnecttablePins();
 
                 // Generate Some ISimulatableComponents
-                Wire<bool> wire = new Wire<bool>("name", new TextBlock(), 0, true, false, new Point(0, 0), Colors.Green, Colors.Green, null, new List<IVisibleComponent>(),new List<Graphic>())
+                Wire<bool> wire = new Wire<bool>("name", new TextBlock(), 0, true, false, new Point(0, 0), 0, Colors.Green, Colors.Green, null, new List<IVisibleComponent>(),new List<Graphic>())
                 {
                     Value = false,
                     Mode = ISim.SchematicEditor.Enum.SignalModes.Bool,
@@ -165,14 +167,14 @@ namespace ISim.ViewModels.SchematicEditor
             {
                 if (clipToGrid) 
                 {
-                    Wire<int> currentCable = (Wire<int>)selectedObjects[selectedObjects.Count - 1];
+                    Wire<bool> currentCable = (Wire<bool>)selectedObjects[selectedObjects.Count - 1];
                     LineGeometry geometry = (LineGeometry)currentCable.GeometricObjects[currentCable.GeometricObjects.Count - 1].Geometry;
                     geometry.EndPoint = surface.convertMousePositionToSurfacePosition(surface.ClipPointToGrid(point.Position));
                     InvalidateVisual();
                 }
                 else 
                 {
-                    Wire<int> currentCable = (Wire<int>)selectedObjects[selectedObjects.Count - 1];
+                    Wire<bool> currentCable = (Wire<bool>)selectedObjects[selectedObjects.Count - 1];
                     LineGeometry geometry = (LineGeometry)currentCable.GeometricObjects[currentCable.GeometricObjects.Count - 1].Geometry;
                     geometry.EndPoint = surface.convertMousePositionToSurfacePosition(point.Position);
                     InvalidateVisual();
@@ -206,9 +208,46 @@ namespace ISim.ViewModels.SchematicEditor
             {
                 if (wireCompleteDrawn)
                 {
-                    Wire<int> currentCable = (Wire<int>)selectedObjects[selectedObjects.Count - 1];
+                    Point ClipToGrid = surface.convertMousePositionToSurfacePosition(surface.ClipPointToGrid(point.Position));
+
+                    IVisibleComponent currentCable = selectedObjects[selectedObjects.Count - 1];
                     LineGeometry geometry = (LineGeometry)currentCable.GeometricObjects[currentCable.GeometricObjects.Count - 1].Geometry; 
-                    geometry.EndPoint = surface.convertMousePositionToSurfacePosition(surface.ClipPointToGrid(point.Position));
+                    geometry.EndPoint = ClipToGrid;
+
+                    // Check if Current Position is on a connectable Pin and Connect the current Wire to that Pin
+                    foreach(ADrawableComponent pin in connectablePins)
+                    {
+                        if(pin is Pin<bool> && currentCable is Wire<bool>)
+                        {
+                            // Check if the User clicks to the correct Position
+                            if (((Pin<bool>)pin).isMousPointInRange(ClipToGrid))
+                            {
+                                // Add the new Wire.
+                                ((Pin<bool>)pin).ConnectedWires.Add((Wire<bool>)currentCable);
+                                // Let the Pin Remove the second Circle
+                                ((Pin<bool>)pin).Init();
+                                break;
+                            }
+                        }
+                        else if (pin is Pin<int> && currentCable is Wire<int>)
+                        {
+                            if (((Pin<int>)pin).isMousPointInRange(ClipToGrid))
+                            {
+                                ((Pin<int>)pin).ConnectedWires.Add((Wire<int>)currentCable);
+                                ((Pin<int>)pin).Init();
+                                break;
+                            }
+                        }
+                        else if(pin is Pin<float> && currentCable is Wire<float>)
+                        {
+                            if (((Pin<float>)pin).isMousPointInRange(ClipToGrid))
+                            {
+                                ((Pin<float>)pin).ConnectedWires.Add((Wire<float>)currentCable);
+                                ((Pin<float>)pin).Init();
+                                break ;
+                            }
+                        }
+                    }
 
                     currentCable.GeometricObjects.Add(new Graphic
                     {
@@ -245,7 +284,7 @@ namespace ISim.ViewModels.SchematicEditor
                             FillColor = new SolidColorBrush(Colors.Orange)
                         });
                     }
-                    Wire<int> wire = new Wire<int>("Cable", new TextBlock { Text = "Cable" }, 0, true, false, new Point(0, 0), Colors.Green, Colors.Green, null, new List<IVisibleComponent>(), lineGraphics);
+                    Wire<bool> wire = new Wire<bool>("Cable", new TextBlock { Text = "Cable" }, 0, true, false, new Point(0, 0), 0, Colors.Green, Colors.Green, null, new List<IVisibleComponent>(), lineGraphics);
                     wire.Mode = ISim.SchematicEditor.Enum.SignalModes.Bool;
                     wire.Init();
 
@@ -334,6 +373,22 @@ namespace ISim.ViewModels.SchematicEditor
         {
             
         }
+
+        private void extractConnecttablePins()
+        {
+            List<ADrawableComponent> pins = new List<ADrawableComponent> ();
+            foreach (ISimulatableComponent component in viewModel.Schematic.SimulatableComponents)
+            {
+                if (component is ISim.SchematicEditor.Simulation.IComponent)
+                {
+                    pins.AddRange(((ISim.SchematicEditor.Simulation.IComponent)component).PinsBool);
+                    pins.AddRange(((ISim.SchematicEditor.Simulation.IComponent)component).PinsTriState);
+                    pins.AddRange(((ISim.SchematicEditor.Simulation.IComponent)component).PinsAnalog);
+                }
+            }
+            connectablePins = pins;
+        }
+
         /// <summary>
         /// Render the saved graphic, and marquee when needed
         /// </summary>
@@ -351,6 +406,22 @@ namespace ISim.ViewModels.SchematicEditor
             foreach(ISimulatableComponent component in viewModel.Schematic.SimulatableComponents)
             {
                 component.Draw(context, surface, this.Bounds);
+                // Drawing of all pins, if the object has any.
+                if (component is ISim.SchematicEditor.Simulation.IComponent)
+                {
+                    foreach(Pin<bool> pin in ((ISim.SchematicEditor.Simulation.IComponent)component).PinsBool)
+                    {
+                        pin.Draw(context, surface, this.Bounds);
+                    }
+                    foreach (Pin<int> pin in ((ISim.SchematicEditor.Simulation.IComponent)component).PinsTriState)
+                    {
+                        pin.Draw(context, surface, this.Bounds);
+                    }
+                    foreach (Pin<float> pin in ((ISim.SchematicEditor.Simulation.IComponent)component).PinsAnalog)
+                    {
+                        pin.Draw(context, surface, this.Bounds);
+                    }
+                }
             }
 
             foreach (ADrawableComponent component in selectedObjects)

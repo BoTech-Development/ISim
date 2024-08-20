@@ -1,42 +1,42 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="ISim.MainModels.Package.Package" Collapsed="true">
-    <Position X="26.5" Y="3.5" Width="1.25" />
+    <Position X="39.25" Y="2.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAIAAAAgAAAABAAAAAAAAAAAAAAAAEAAAA=</HashCode>
       <FileName>MainModels\Package\Package.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ISim.MainModels.Project.Project" Collapsed="true">
-    <Position X="30" Y="3.5" Width="1.25" />
+    <Position X="32.25" Y="3.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAIAAEAAAAQAAAAAAAAAAAAAAQAAAAA=</HashCode>
       <FileName>MainModels\Project\Project.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ISim.MainModels.Project.ProjectInI" Collapsed="true">
-    <Position X="31.75" Y="3.5" Width="1.25" />
+    <Position X="34" Y="3.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAIAAAAAAAQAQAAAAAAAAAAAAQAAAAA=</HashCode>
       <FileName>MainModels\Project\ProjectInI.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ISim.MainModels.Extension" Collapsed="true">
-    <Position X="35.25" Y="0.5" Width="1.25" />
+    <Position X="41" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAACCAAAAAAgAAAAgAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>MainModels\Extension.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ISim.MainModels.Solution" Collapsed="true">
-    <Position X="28.25" Y="4.5" Width="1.25" />
+    <Position X="41" Y="3.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAIAAEAAAAAAAAEAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>MainModels\Solution.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ISim.SchematicEditor.Graphic.ADrawableComponent" Collapsed="true">
-    <Position X="4" Y="5.25" Width="2" />
+    <Position X="3.5" Y="3.5" Width="2" />
     <TypeIdentifier>
       <HashCode>AQAAAAAAAAAAgoAgEAAASAQAAAAAAAAICAAAAAgAAAI=</HashCode>
       <FileName>SchematicEditor\Graphic\ADrawableComponent.cs</FileName>
@@ -44,295 +44,295 @@
     <Lollipop Position="0.127" />
   </Class>
   <Class Name="ISim.SchematicEditor.Graphic.ADrawableFactoryComponent" Collapsed="true">
-    <Position X="6.5" Y="5.25" Width="2.25" />
+    <Position X="29" Y="4.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>SchematicEditor\Graphic\ADrawableFactoryComponent.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ISim.SchematicEditor.Graphic.Graphic" Collapsed="true">
-    <Position X="26.5" Y="1.5" Width="1.25" />
+    <Position X="32.25" Y="1.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAgAA=</HashCode>
       <FileName>SchematicEditor\Graphic\Graphic.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ISim.SchematicEditor.Graphic.Surface" Collapsed="true">
-    <Position X="3.75" Y="8.25" Width="1.25" />
+    <Position X="29.5" Y="6.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAADgAABAAARAAAEFAAAAgQAAAAAAAAAAAAAAAAAgA=</HashCode>
       <FileName>SchematicEditor\Graphic\Surface.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ISim.SchematicEditor.Graphic.TestGraphic" Collapsed="true">
-    <Position X="7.5" Y="6.5" Width="2" />
+    <Position X="6.25" Y="4.75" Width="2" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>SchematicEditor\Graphic\TestGraphic.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ISim.SchematicEditor.Model.ObjectData.Cathegory" Collapsed="true">
-    <Position X="31.75" Y="0.5" Width="1.25" />
+    <Position X="37.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAIAAAAAAAAAAEAAAAAABAAAAAAAA=</HashCode>
       <FileName>SchematicEditor\Model\ObjectData\Cathegory.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ISim.SchematicEditor.Model.ObjectData.ObjectData" Collapsed="true">
-    <Position X="35.25" Y="2.5" Width="2" />
+    <Position X="37.5" Y="2.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAEAAAAgAAAAAAEAAAQAAAAAAAAAAQAAAAAAAAA=</HashCode>
       <FileName>SchematicEditor\Model\ObjectData\ObjectData.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ISim.SchematicEditor.Model.Schematic" Collapsed="true">
-    <Position X="11.25" Y="3.5" Width="1.25" />
+    <Position X="30.25" Y="3.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAEAAAAIAAgABCCAAAIEAEEAAAAQAAAAAAAAAAI=</HashCode>
+      <HashCode>AAAQAEAAAAAgAIAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>SchematicEditor\Model\Schematic.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ISim.SchematicEditor.Model.SubSchematic" Collapsed="true">
-    <Position X="11.25" Y="4.25" Width="1.25" />
+    <Position X="30.25" Y="4" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAQAAAgAACCAAAYAQEEAAAAQAAAAAAAAABI=</HashCode>
       <FileName>SchematicEditor\Model\SubSchematic.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ISim.SchematicEditor.Standard.Bus&lt;T&gt;" Collapsed="true">
-    <Position X="5.25" Y="6.5" Width="1.25" />
+    <Position X="29.25" Y="5.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAMBAAAAAAAAAIAAAAAAAAAAAAAAgCAAEAAA=</HashCode>
       <FileName>SchematicEditor\Standard\Bus.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ISim.SchematicEditor.Standard.Pin&lt;T&gt;" Collapsed="true">
-    <Position X="0.75" Y="6.5" Width="2" />
+    <Position X="0.75" Y="4.75" Width="2" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAMBAAAAAAAAAAAAAAAAAAAAAAAAgAAQEAAA=</HashCode>
       <FileName>SchematicEditor\Standard\Pin.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ISim.SchematicEditor.Standard.Wire&lt;T&gt;" Collapsed="true">
-    <Position X="3" Y="6.5" Width="2" />
+    <Position X="3.5" Y="4.75" Width="2" />
     <TypeIdentifier>
-      <HashCode>AAAAAAIAAIBAAAgAAAAAIAAAAAAEAAAAAABgCAAAAAA=</HashCode>
+      <HashCode>AAAAAAIAAIBABAgAAAAAAAAAAAAEAAAAAABiAAAAAAA=</HashCode>
       <FileName>SchematicEditor\Standard\Wire.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="ISim.SchematicEditor.IDProvider" Collapsed="true">
-    <Position X="31.75" Y="1.5" Width="1.25" />
+    <Position X="35.75" Y="1.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAEAAAABAAAAgAAAAAAAAAABAABEABQAAAAAAAAAgAA=</HashCode>
       <FileName>SchematicEditor\IDProvider.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ISim.SchematicEditor.IDProvider2" Collapsed="true">
-    <Position X="33.5" Y="1.5" Width="1.25" />
+    <Position X="37.5" Y="1.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAIAAABAAAAAAAAAAAAAAAAkAIQARCACAAACAAYBAk=</HashCode>
       <FileName>SchematicEditor\IDProvider2.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ISim.Services.StorageService" Collapsed="true">
-    <Position X="30" Y="4.5" Width="1.25" />
+    <Position X="32.25" Y="4.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>QAAABCAAAAAAAAIAAAIAAAAAAAAAAQAAAIAAAACAAgA=</HashCode>
       <FileName>Services\StorageService.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ISim.ViewModels.Loader.LoadingViewModel" Collapsed="true">
-    <Position X="19.5" Y="2" Width="2" />
+    <Position X="23.75" Y="2" Width="2" />
     <TypeIdentifier>
       <HashCode>AgAAAAAQAAEAAAAAAgAAAAEAAAAAAAAAAAAgAAAAAAA=</HashCode>
       <FileName>ViewModels\Loader\LoadingViewModel.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ISim.ViewModels.Loader.ProgressBarDataTemplate" Collapsed="true">
-    <Position X="13.5" Y="8.5" Width="2" />
+    <Position X="6.5" Y="6.5" Width="2" />
     <TypeIdentifier>
       <HashCode>AAQAEAAAIAAQAgAAAAAAAAAAAAAAACAAAAAACAQAAAA=</HashCode>
       <FileName>ViewModels\Loader\ProgressBarDataTemplate.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ISim.ViewModels.Loader.SplitProgressBarDataTemplate" Collapsed="true">
-    <Position X="13.5" Y="7" Width="2" />
+    <Position X="6.5" Y="7.75" Width="2" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>ViewModels\Loader\SplitProgressBarDataTemplate.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ISim.ViewModels.ObjectBrowser.ObjectBrowserViewModel" Collapsed="true">
-    <Position X="6" Y="2" Width="2" />
+    <Position X="7.25" Y="2" Width="2" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAA=</HashCode>
       <FileName>ViewModels\ObjectBrowser\ObjectBrowserViewModel.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ISim.ViewModels.ObjectBrowser.TreeViewNode" Collapsed="true">
-    <Position X="28.25" Y="5.5" Width="1.25" />
+    <Position X="39.25" Y="4.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAIACAAAAAAAAAAAQAAAAAAAAAAABAAAAAAAA=</HashCode>
       <FileName>ViewModels\ObjectBrowser\TreeViewNode.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="BoTech_AppStore.ViewModels.Pages.LoginView" Collapsed="true">
-    <Position X="26.5" Y="2.5" Width="1.25" />
+    <Position X="39.25" Y="1.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>ViewModels\Pages\LoginView.axaml.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="BoTech_AppStore.ViewModels.Pages.MainSettingsPageModel" Collapsed="true">
-    <Position X="15" Y="2" Width="2" />
+    <Position X="18.25" Y="2" Width="2" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>ViewModels\Pages\MainSettingsPageModel.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="BoTech_AppStore.ViewModels.Pages.SettingsViewModel" Collapsed="true">
-    <Position X="21.75" Y="2" Width="2" />
+    <Position X="26.5" Y="2" Width="2" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>ViewModels\Pages\SettingsViewModel.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ISim.ViewModels.SchematicEditor.PaintControl" Collapsed="true">
-    <Position X="18.5" Y="6" Width="1.25" />
+    <Position X="28.5" Y="3" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AQCAAIABBAgRAiAAEAQQAAAIAsEABIAIABAChgIAQAA=</HashCode>
+      <HashCode>AQCAAIAhAAgRAiCAEAQQAAAIAsAAAACIABBChgIAQAA=</HashCode>
       <FileName>ViewModels\SchematicEditor\PaintControl.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ISim.ViewModels.SchematicEditor.SchematicEditorWindowViewModel" Collapsed="true">
-    <Position X="3.75" Y="2" Width="2" />
+    <Position X="4.5" Y="2" Width="2" />
     <TypeIdentifier>
-      <HashCode>AAAAAAGAAEACAAAOEAAIgAAKBAIABQgEIBAAAAAAEAA=</HashCode>
+      <HashCode>AAAAAAGEAEACgAAOEAAIgAgKBgIABwgEoBAAAAAAEAA=</HashCode>
       <FileName>ViewModels\SchematicEditor\SchematicEditorWindowViewModel.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ISim.ViewModels.SchematicEditor.TabTemplate" Collapsed="true">
-    <Position X="35.25" Y="4.5" Width="2" />
+    <Position X="37.5" Y="4.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAgAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>ViewModels\SchematicEditor\TabTemplate.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ISim.ViewModels.DockingWindowViewModel" Collapsed="true">
-    <Position X="8.25" Y="2" Width="2" />
+    <Position X="10" Y="2" Width="2" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>ViewModels\DockingWindowViewModel.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ISim.ViewModels.HomeViewModel" Collapsed="true">
-    <Position X="10.5" Y="2" Width="2" />
+    <Position X="12.75" Y="2" Width="2" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAIA=</HashCode>
       <FileName>ViewModels\HomeViewModel.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ISim.ViewModels.MainWindowViewModel" Collapsed="true">
-    <Position X="12.75" Y="2" Width="2" />
+    <Position X="15.5" Y="2" Width="2" />
     <TypeIdentifier>
       <HashCode>AAACAAEAAkAAAAAEAAAIgAAIAAAAAQAAAAAAAAQAEAA=</HashCode>
       <FileName>ViewModels\MainWindowViewModel.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ISim.ViewModels.NewProjectViewModel" Collapsed="true">
-    <Position X="17.25" Y="2" Width="2" />
+    <Position X="21" Y="2" Width="2" />
     <TypeIdentifier>
       <HashCode>AAAQAAAAgAAEAAAQAAEgAAgMAAEACQAQAAoAAAICAAA=</HashCode>
       <FileName>ViewModels\NewProjectViewModel.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ISim.ViewModels.ObjectBrowserViewModel" Collapsed="true">
-    <Position X="24" Y="2" Width="2" />
+    <Position X="29.25" Y="2" Width="2" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAEAAAAAAEgAQAAAAAAAAAAACAAAAAAAAAAA=</HashCode>
       <FileName>ViewModels\ObjectBrowserViewModel.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ISim.ViewModels.SettingsViewModel" Collapsed="true">
-    <Position X="1.5" Y="2" Width="2" />
+    <Position X="1.75" Y="2" Width="2" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>ViewModels\SettingsViewModel.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ISim.ViewModels.ViewModelBase" Collapsed="true">
-    <Position X="12.75" Y="0.5" Width="2" />
+    <Position X="15.5" Y="0.5" Width="2" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>ViewModels\ViewModelBase.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ISim.Views.DockingWindow" Collapsed="true">
-    <Position X="33.5" Y="0.5" Width="1.25" />
+    <Position X="39.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Views\DockingWindow.axaml.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ISim.Views.HomeView" Collapsed="true">
-    <Position X="30" Y="1.5" Width="1.25" />
+    <Position X="34" Y="1.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Views\HomeView.axaml.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ISim.Views.MainView" Collapsed="true">
-    <Position X="28.25" Y="2.5" Width="1.25" />
+    <Position X="41" Y="1.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Views\MainView.axaml.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ISim.Views.MainWindow" Collapsed="true">
-    <Position X="30" Y="2.5" Width="1.25" />
+    <Position X="32.25" Y="2.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Views\MainWindow.axaml.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ISim.Views.NewProjectView" Collapsed="true">
-    <Position X="31.75" Y="2.5" Width="1.25" />
+    <Position X="34" Y="2.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Views\NewProjectView.axaml.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ISim.Views.ObjectBrowserView" Collapsed="true">
-    <Position X="33.5" Y="2.5" Width="1.25" />
+    <Position X="35.75" Y="2.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Views\ObjectBrowserView.axaml.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ISim.Views.SchematicEditorWindow" Collapsed="true">
-    <Position X="35.25" Y="3.5" Width="2" />
+    <Position X="37.5" Y="3.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAACIAAAAAAAAAAA=</HashCode>
       <FileName>Views\SchematicEditorWindow.axaml.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ISim.Views.SettingsView" Collapsed="true">
-    <Position X="26.5" Y="4.5" Width="1.25" />
+    <Position X="39.25" Y="3.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Views\SettingsView.axaml.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ISim.App" Collapsed="true">
-    <Position X="28.25" Y="0.5" Width="1.25" />
+    <Position X="34" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAwAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>App.axaml.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ISim.ViewLocator" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="30" Y="5.5" Width="1.25" />
+    <Position X="41" Y="4.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAgAAAAAAAAAAAAAAAAAAAAAAgAAAAEAAAAAAAAA=</HashCode>
       <FileName>ViewLocator.cs</FileName>
@@ -340,70 +340,70 @@
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Interface Name="ISim.SchematicEditor.Graphic.IVisibleComponent" Collapsed="true">
-    <Position X="4" Y="4" Width="2" />
+    <Position X="3.5" Y="7.75" Width="2" />
     <TypeIdentifier>
       <HashCode>AQAAAAAAAAAAAoAgEAAASAQAAAAAAAAICAAAAAgAAAI=</HashCode>
       <FileName>SchematicEditor\Graphic\IVisibleComponent.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="ISim.SchematicEditor.Simulation.IComponent" Collapsed="true">
-    <Position X="0.5" Y="8.25" Width="2" />
+    <Position X="0.5" Y="6.5" Width="2" />
     <TypeIdentifier>
       <HashCode>IACAAAAAAAAAAAAAACAAAAAAAAAIAAAAAAAAAAAAAAA=</HashCode>
       <FileName>SchematicEditor\Simulation\IComponent.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="ISim.SchematicEditor.Simulation.IOComponent" Collapsed="true">
-    <Position X="0.5" Y="9.5" Width="2" />
+    <Position X="0.5" Y="8" Width="2" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>SchematicEditor\Simulation\IOComponent.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="ISim.SchematicEditor.Simulation.IInteractiveComponent" Collapsed="true">
-    <Position X="0.5" Y="10.75" Width="2" />
+    <Position X="0.5" Y="9.5" Width="2" />
     <TypeIdentifier>
       <HashCode>AACAAAAQAAAAAAAAAAAAAAAAAAAACAAAAgAAAAAAAAA=</HashCode>
       <FileName>SchematicEditor\Simulation\IInteractiveComponent.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="ISim.SchematicEditor.ICountableID" Collapsed="true">
-    <Position X="4" Y="3" Width="2" />
+    <Position X="3.5" Y="6.5" Width="2" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>SchematicEditor\ICountableID.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Enum Name="ISim.SchematicEditor.Enum.Error.Error" Collapsed="true">
-    <Position X="26.5" Y="6.75" Width="1.25" />
+    <Position X="32.25" Y="5.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgEAAAA=</HashCode>
       <FileName>SchematicEditor\Enum\Error\Error.cs</FileName>
     </TypeIdentifier>
   </Enum>
   <Enum Name="ISim.SchematicEditor.Enum.Error.FileError" Collapsed="true">
-    <Position X="28.25" Y="6.75" Width="1.25" />
+    <Position X="34" Y="5.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>gKAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAgEAEAA=</HashCode>
       <FileName>SchematicEditor\Enum\Error\Error.cs</FileName>
     </TypeIdentifier>
   </Enum>
   <Enum Name="ISim.SchematicEditor.Enum.SignalModes" Collapsed="true">
-    <Position X="31.75" Y="6.75" Width="1.25" />
+    <Position X="37.5" Y="5.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAABAAAAAAAAAgAAAAAAAAAIAAAAAAEAAAAAEAAAA=</HashCode>
       <FileName>SchematicEditor\Enum\SignalModes.cs</FileName>
     </TypeIdentifier>
   </Enum>
   <Enum Name="ISim.SchematicEditor.Enum.SignalModesPins" Collapsed="true">
-    <Position X="33.5" Y="6.75" Width="1.25" />
+    <Position X="39.25" Y="5.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>ABAAAAAAAAAAAAAAQAQAAAAAAAAQAAAEAAAAAAESIAA=</HashCode>
       <FileName>SchematicEditor\Enum\SignalModes.cs</FileName>
     </TypeIdentifier>
   </Enum>
   <Enum Name="ISim.ViewModels.Loader.ProgressBarStatus" Collapsed="true">
-    <Position X="30" Y="6.75" Width="1.25" />
+    <Position X="35.75" Y="5.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAEAAAQAAAgAAAAAAAAAAAAIAACAAAA=</HashCode>
       <FileName>ViewModels\Loader\ProgressBarStatus.cs</FileName>

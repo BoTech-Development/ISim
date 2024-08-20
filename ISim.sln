@@ -13,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ISim.Desktop", "ISim.Deskto
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ISim.iOS", "ISim.iOS\ISim.iOS.csproj", "{8AA456ED-398E-4C67-B2DF-D3D87E8BBA2E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InBuiltComponents", "InBuiltComponents\InBuiltComponents.csproj", "{C125129D-B59D-49DA-97A7-EC84887D3880}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -43,6 +45,10 @@ Global
 		{8AA456ED-398E-4C67-B2DF-D3D87E8BBA2E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8AA456ED-398E-4C67-B2DF-D3D87E8BBA2E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{8AA456ED-398E-4C67-B2DF-D3D87E8BBA2E}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{C125129D-B59D-49DA-97A7-EC84887D3880}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C125129D-B59D-49DA-97A7-EC84887D3880}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C125129D-B59D-49DA-97A7-EC84887D3880}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C125129D-B59D-49DA-97A7-EC84887D3880}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

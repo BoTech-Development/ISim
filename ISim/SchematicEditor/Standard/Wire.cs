@@ -29,7 +29,7 @@ namespace ISim.SchematicEditor.Standard
 
        
 
-        public Wire(string name, TextBlock caption, int zoom, bool visible, bool selected, Point position, Color fillColor, Color lineColor, IVisibleComponent parent, List<IVisibleComponent> childs, List<SchematicEditor.Graphic.Graphic> geometricObjects) : base(name, caption, zoom, visible, selected, position, fillColor, lineColor, parent, childs, geometricObjects)
+        public Wire(string name, TextBlock caption, int zoom, bool visible, bool selected, Point position, int orientation, Color fillColor, Color lineColor, IVisibleComponent parent, List<IVisibleComponent> childs, List<SchematicEditor.Graphic.Graphic> geometricObjects) : base(name, caption, zoom, visible, selected, position, orientation, fillColor, lineColor, parent, childs, geometricObjects)
         {
             
         }

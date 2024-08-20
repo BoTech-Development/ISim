@@ -19,13 +19,15 @@ namespace ISim.SchematicEditor.Graphic
         public bool Visible { get; set; } = false;
         public bool Selected { get; set; } = false;
         public Point Position { get; set; } = new Point();
+        public int Orientation { get; set; } = 0;
         public Color FillColor { get; set; } = new Color();
         public Color LineColor { get; set; } = new Color();
         public IVisibleComponent Parent { get; set; } 
         public List<IVisibleComponent> Childs { get; set; }
         public List<Graphic> GeometricObjects { get; set; }
+        
 
-        protected ADrawableComponent(string name, TextBlock caption, int zoom, bool visible, bool selected, Point position, Color fillColor, Color lineColor, IVisibleComponent parent, List<IVisibleComponent> childs, List<Graphic> geometricObjects)
+        protected ADrawableComponent(string name, TextBlock caption, int zoom, bool visible, bool selected, Point position, int orientation, Color fillColor, Color lineColor, IVisibleComponent parent, List<IVisibleComponent> childs, List<Graphic> geometricObjects)
         {
            
             Name = name;
@@ -34,6 +36,7 @@ namespace ISim.SchematicEditor.Graphic
             Visible = visible;
             Selected = selected;
             Position = position;
+            Orientation = orientation;
             FillColor = fillColor;
             LineColor = lineColor;
             Parent = parent;

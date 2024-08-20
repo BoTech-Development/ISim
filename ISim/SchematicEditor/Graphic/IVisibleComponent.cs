@@ -33,6 +33,9 @@ namespace ISim.SchematicEditor.Graphic
         [Description("can be used by Logic Components but it is usless to use it in Wire class ")]
         public Point Position { get; set; } //can be used by Logic Components but it is usless to use it in Wire class 
 
+        [Description("Orientation of the Component. Each Component has to have to rotate. The Orientation will be stored as Degree.")]
+        public int Orientation { get; set; }
+
         [Description("Color Around the Gemoteric Objects")]
         public Color FillColor { get; set; } // Color in the Gemetric Objects
 

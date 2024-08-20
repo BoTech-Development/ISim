@@ -40,7 +40,7 @@ namespace ISim.ViewModels
             graphics.Add(new Graphic() { Geometry = new RectangleGeometry(new Rect(new Point(0, 0), new Point(10, 10))), LineColor = new Pen(new SolidColorBrush(Colors.Red)), FillColor = new SolidColorBrush(Colors.Orange) });
             graphics.Add(new Graphic() { Geometry = new EllipseGeometry() { RadiusX = 10, RadiusY = 10, Center = new Point(5, 5) }, LineColor = new Pen(new SolidColorBrush(Colors.Blue)), FillColor = new SolidColorBrush(Colors.LightBlue) });
 
-            TestGraphic testGraphic = new TestGraphic("name", new TextBlock(), 0, true, false, new Point(0, 0), Colors.Red, Colors.Red, null, new List<IVisibleComponent>(), graphics);
+            TestGraphic testGraphic = new TestGraphic("name", new TextBlock(), 0, true, false, new Point(0, 0), 0, Colors.Red, Colors.Red, null, new List<IVisibleComponent>(), graphics);
 
 
 
