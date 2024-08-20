@@ -5,8 +5,9 @@
 			 xmlns:views="clr-namespace:ISim.Views"
 			 xmlns:sys="clr-namespace:System;assembly=mscorlib"
 			 xmlns:vm="clr-namespace:ISim.ViewModels"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="ISim.Views.MainView">
+             
+             x:Class="ISim.Views.MainView"
+			 x:DataType="vm:MainWindowViewModel">
 	<Design.DataContext>
 		<vm:MainWindowViewModel/>
 	</Design.DataContext>
@@ -26,7 +27,7 @@
 			<RowDefinition Height="auto"></RowDefinition>
 		</Grid.RowDefinitions>
 		<StackPanel Orientation="Horizontal">
-			<TextBlock Text="{Binding MenuPath}" VerticalAlignment="Center"></TextBlock>
+			<TextBlock Text="{Binding }" VerticalAlignment="Center"></TextBlock>
 			<Button HorizontalAlignment="Right">Login</Button>
 		</StackPanel>
 
@@ -71,7 +72,7 @@
 							<Button.CommandParameter>
 								<sys:Int32>4</sys:Int32>
 							</Button.CommandParameter>
-							Settings
+							 Settings => Test 
 						</Button>
 					</StackPanel>
 				</Border>
@@ -86,7 +87,7 @@
 				</Border>
 			</SplitView.Content>
 		</SplitView>
-		<TextBlock Grid.Row="2" FontSize="16" Foreground="Gray">Status: Initialization</TextBlock>
+		<TextBlock Grid.Row="2" FontSize="16" Foreground="Gray">Status: Initialization; Version: v1.0.3</TextBlock>
 
 	</Grid>
 </UserControl>

@@ -19,7 +19,7 @@ namespace ISim.ViewModels
     {
 
         private LoadingViewModel loadingViewModel = null;
-        private Loading loadingView = null;
+    
 
         public ReactiveCommand<int, Unit> ButtonMenuCommand { get; set; }
         public ReactiveCommand<Unit, Unit> BrowseCommand { get; set; }
@@ -87,7 +87,7 @@ namespace ISim.ViewModels
             // if (!Directory.Exists(SolutionPath)) Directory.CreateDirectory(SolutionPath);
             // File.Create(SolutionPath + SolutionName + ".ISimSln");
             loadingViewModel = new LoadingViewModel("Creating new Project");
-            loadingView = new Loading(loadingViewModel);
+           
             
             switch (solutionType)
             {

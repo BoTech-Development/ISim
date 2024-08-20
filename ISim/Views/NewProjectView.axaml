@@ -5,7 +5,8 @@
              mc:Ignorable="d" 
 			 xmlns:sys="clr-namespace:System;assembly=mscorlib"
 			 xmlns:vm="clr-namespace:ISim.ViewModels"
-             x:Class="ISim.Views.NewProjectView">
+             x:Class="ISim.Views.NewProjectView"
+			  x:DataType="vm:NewProjectViewModel">
 	<Design.DataContext>
 		<vm:NewProjectViewModel/>
 	</Design.DataContext>

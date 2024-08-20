@@ -28,7 +28,7 @@ namespace ISim.SchematicEditor.Model
 
         private List<IComponent> components = new List<IComponent>();
         private List<IOComponent> IOcomponents = new List<IOComponent>();
-        private List<IOUserInterface> IOUserInterface = new List<IOUserInterface>();
+        private List<ISimulatableComponent> IOUserInterface = new List<ISimulatableComponent>();
         /*Info: Shows all Component when they fit in the given canvas size
          *      
          

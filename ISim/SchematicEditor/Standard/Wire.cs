@@ -5,8 +5,11 @@ using Avalonia.Media;
 using ISim.SchematicEditor.Enum;
 using ISim.SchematicEditor.Graphic;
 using ISim.SchematicEditor.Model;
+using ISim.SchematicEditor.Simulation;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Timers;
 
 
 
@@ -14,87 +17,100 @@ using System.Collections.Generic;
 
 namespace ISim.SchematicEditor.Standard
 {
-    public class Wire<T> : ADrawableComponent
+    public class Wire<T> : ADrawableComponent, ISimulatableComponent
     {
         public T Value { get; set; }
-        public SignalModes Mode = 0; // 0=not defined, 1=bool(T=bool), 2=tri-State(T=int), 3=analog(T=float), 4=Userdefined
+        public SignalModes Mode { get; set; } = SignalModes.Userdefined; // 0=not defined, 1=bool(T=bool), 2=tri-State(T=int), 3=analog(T=float), 4=Userdefined
         public Bus<T> busRef = null;
 
-        //View:
-        public List<Point> positions = new List<Point>();
-        public List<Color> simulationColors = new List<Color>(); // simulationColors[0] => erepresents the default color which wioll be schown in the Schematic editor. All other colors arte for the Simulation.
+        //View-Related:
+        public List<Color> simulationColors = new List<Color>(); // simulationColors[0] => erepresents the default color which will be schown in the Schematic editor. All other colors are for the Simulation.
         public float accuracy = 0.0f;//Use this Value to select the accuracy of the Simulation-Colors
+
+       
 
         public Wire(string name, TextBlock caption, int zoom, bool visible, bool selected, Point position, Color fillColor, Color lineColor, IVisibleComponent parent, List<IVisibleComponent> childs, List<SchematicEditor.Graphic.Graphic> geometricObjects) : base(name, caption, zoom, visible, selected, position, fillColor, lineColor, parent, childs, geometricObjects)
         {
+            
         }
 
-        public void OnInputChange()
+        public void Init()
         {
-
-        }
-        public void OnShow(Canvas surface)
-        {
-            Color SimColor = Colors.White;
-            //geting the current sim Color which is equals to the state of the Wire
-            if (Value.GetType() == typeof(int))
+            switch (Mode)
             {
-                int value = (int)Convert.ChangeType(Value, typeof(int));
-                SimColor = simulationColors[value];
-            }
-            else if (Value.GetType() == typeof(bool))
-            {
-                bool value = (bool)Convert.ChangeType(Value, typeof(bool));
-                if (value)
-                {
-                    SimColor = simulationColors[1];
-                }
-                else
-                {
-                    SimColor = simulationColors[2];
-                }
-            }
-            else if (Value.GetType() == typeof(float))
-            {
-                float value = (int)Convert.ChangeType(Value, typeof(int)) * accuracy;
-                SimColor = simulationColors[(int)value];
-            }
-            //Drwaing all Lines    
-            int i = 0;
-            while (i < positions.Count)
-            {
-                i++;
-                Point a = positions[i];
-                i++;
-                Point b = positions[i];
-                Line wireLine = new Line();
-
-                wireLine.StartPoint.WithX(a.X);
-                wireLine.StartPoint.WithX(a.Y);
-                wireLine.Width = b.X;
-                wireLine.Height = b.Y;
-                wireLine.Stroke = new SolidColorBrush(SimColor);
-                surface.Children.Add(wireLine);
+                case SignalModes.Userdefined:
+                    throw new NotImplementedException();
+                    break;
+                case SignalModes.Bool:
+                    // Default
+                    LineColor = Colors.Gray;
+                    FillColor = Colors.Gray;
+                    //simulationColors.Add(Colors.Gray);
+                    simulationColors.Add(Colors.Red); // Off
+                    simulationColors.Add(Colors.Green); // On
+                    break;
+                case SignalModes.TRI_State:
+                    throw new NotImplementedException();
+                    break;
+                case SignalModes.Analog:
+                    throw new NotImplementedException();
+                    break;
             }
         }
+
         public void Refresh()
         {
-
+            bool value = (bool)Convert.ChangeType(Value, typeof(bool));
+            Value = (T)Convert.ChangeType(!value, Value.GetType());
         }
-
-        /*Info: Checks if any of the Postions are in this range
-         * 
-         */
-        public bool isInRange(Point lowerRange, Point higherRange)
+        public void Redraw()
         {
-            foreach (Point point in positions)
+            // This Code change the Color of the Wire whether the Power is on or off.
+            Color currentColor = Colors.Gray;
+
+            switch (Mode)
             {
-                if (point.X < higherRange.X && point.X > lowerRange.X && point.Y < higherRange.Y && point.Y > lowerRange.Y)
-                {
-                    return true;
-                }
+                case SignalModes.Userdefined:
+                    throw new NotImplementedException();
+                    break;
+                case SignalModes.Bool:
+                    if (Value is bool)
+                    {
+                        if ((bool)Convert.ChangeType(Value, typeof(bool)))
+                        {
+                            //When true or On
+                            currentColor = simulationColors[1]; // Change the Color to Green
+                        }
+                        else
+                        {
+                            // When false or off
+                            currentColor = simulationColors[0]; // Change the Color to Red
+                        }
+                    }
+                    break;
+                case SignalModes.TRI_State:
+                    throw new NotImplementedException();
+                    break;
+                case SignalModes.Analog:
+                    throw new NotImplementedException();
+                    break;
             }
-            return false;
+
+            foreach(Graphic.Graphic graphic in GeometricObjects)
+            {
+                graphic.FillColor = new SolidColorBrush(currentColor);
+                graphic.LineColor = new Pen(new SolidColorBrush(currentColor));
+            }
+        }
+        public void Reset()
+        {
+            // Set Colors to default:
+            foreach (Graphic.Graphic graphic in GeometricObjects)
+            {
+
+                graphic.FillColor = new SolidColorBrush(FillColor);
+                graphic.LineColor = new Pen(new SolidColorBrush(LineColor));
+            }
         }
     }
 }

@@ -68,7 +68,7 @@ namespace ISim.ViewModels
                    // new SchematicEditorWindow(new SchematicEditorWindowViewModel(), this).Show();
                     break;
                 case 3:
-                    new Loading(new LoadingViewModel("Test")).Show();
+                    
                     break;
                 case 4:
                     new SchematicEditorWindow(new SchematicEditorWindowViewModel()).Show();

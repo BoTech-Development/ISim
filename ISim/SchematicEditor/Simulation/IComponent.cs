@@ -13,7 +13,7 @@ using System.Collections.Generic;
  */
 namespace ISim.SchematicEditor.Simulation
 {
-    public interface IComponent
+    public interface IComponent : ISimulatableComponent
     {
         /*If your component do bot have bool, Tris-State or Analog-Inputs/Outputs please set these Propertys to null.*/
 
@@ -22,13 +22,6 @@ namespace ISim.SchematicEditor.Simulation
         public List<Pin<float>> pinsAnalog { get; set; }
         public ObjectData objectData { get; set; }//Stores the data for the Browser
                                                   //public List<Pin<T>> pinsCostum { get; set; } // Please decide in each case if you want to support costum pins
-
-
-
-        public void OnDelet() { }
-        public void OnInputChange() { }
-        public void OnShow(Canvas surface) { }
-        public void Refresh() { }
 
     }
 }

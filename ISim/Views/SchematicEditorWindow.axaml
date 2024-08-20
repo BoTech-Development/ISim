@@ -7,6 +7,7 @@
 		xmlns:sys="clr-namespace:System;assembly=mscorlib"
 		xmlns:vm="clr-namespace:ISim.ViewModels.SchematicEditor"
 		xmlns:controls="clr-namespace:ISim.ViewModels.SchematicEditor"
+		x:DataType="vm:SchematicEditorWindowViewModel"
         Title="ISim-SchematicEditor">
 	<Design.DataContext>
 		<vm:SchematicEditorWindowViewModel/>
@@ -60,7 +61,6 @@
 				<Button Command="{Binding HomePositionCommand}" >Home Position</Button>
 				<Button Command="{Binding DrawLineCommand}" >Draw Line</Button>
 			</StackPanel>
-
 			<Grid Grid.Row="1" x:Name="PaintControlGrid">
 				<Grid.ColumnDefinitions>
 					<ColumnDefinition/>
@@ -68,14 +68,21 @@
 				<Grid.RowDefinitions>
 					<RowDefinition></RowDefinition>
 				</Grid.RowDefinitions>
-
 				<controls:PaintControl DataContext="{Binding $parent.DataContext}"/>
-			
 			</Grid>
-		
-	
 			<TextBlock Grid.Row="2" FontSize="16" Foreground="Gray" Text="{Binding Zoom}"></TextBlock>
-
 		</Grid>
+		<StackPanel Grid.Column="2" >
+			<Button Command="{Binding SimulationCommand}">
+				<StackPanel>
+					<TextBlock>Start Simulation</TextBlock>
+					<PathIcon Data="{StaticResource play-circle-fill}" Foreground="Green" IsVisible="{Binding !IsSimulationEnabled}"></PathIcon>
+					<PathIcon Data="{StaticResource stop-circle-fill}" Foreground="Red" IsVisible="{Binding IsSimulationEnabled}"></PathIcon>
+				</StackPanel>
+			</Button>
+			<Button>Reset</Button>
+			
+		</StackPanel>
+		
 	</Grid>
 </Window>

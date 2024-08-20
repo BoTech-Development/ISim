@@ -7,6 +7,7 @@ using Avalonia.Media;
 
 using ISim.SchematicEditor.Graphic;
 using ISim.SchematicEditor.Simulation;
+using ISim.SchematicEditor.Standard;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -43,13 +44,13 @@ namespace ISim.ViewModels.SchematicEditor
         [Description("Is true when the user has selected some Onjects with the Select Rectangle.")]
         private bool objectSelected = false;
         [Description("Copy of all Selected Objects. It can be the drag and drop Objects or the selected one. No deep copy, reference only.")]
-        private List<ADrawableComponent> selectedObjects = new List<ADrawableComponent>();
+        private List<IVisibleComponent> selectedObjects = new List<IVisibleComponent>();
         [Description("If this Flag is true the user want to drwa line. ")]
-        private bool drawingLines = false;
+        private bool drawingWires = false;
         [Description("This Flag goes true when the user click the left Mouse Button two times. By the First Click the Line Draw starts and end by the next click.")]
-        private bool lineCompleteDrawn = false;
+        private bool wireCompleteDrawn = false;
         [Description("This Flag is true when the user click the button to draw a new Line. When the first Part of the Line has been Drawn the flag goes false.")]
-        private bool firstLineToDraw = true;
+        private bool firstWireToDraw = true;
         [Description("Is true when the cursor will automaticly moved to the cross of the Grid.")]
         private bool clipToGrid = true;
 
@@ -59,7 +60,7 @@ namespace ISim.ViewModels.SchematicEditor
 
 
 
-        private List<ADrawableComponent> drawableComponents = new List<ADrawableComponent>();
+        //private List<ADrawableComponent> drawableComponents = new List<ADrawableComponent>();
 
         public PaintControl()
         {
@@ -83,20 +84,7 @@ namespace ISim.ViewModels.SchematicEditor
             KeyDownEvent.AddClassHandler<TopLevel>(PaintControl_KeyDown, handledEventsToo: true);
             KeyUpEvent.AddClassHandler<TopLevel>(PaintControl_KeyUp, handledEventsToo: true);
 
-            List<Graphic> graphics = new List<Graphic>();
-            graphics.Add(new Graphic() { Geometry = new RectangleGeometry(new Rect(new Point(10, 10), new Point(40, 40))), LineColor = new Pen(new SolidColorBrush(Colors.Red)), FillColor = new SolidColorBrush(Colors.Orange)});
-            graphics.Add(new Graphic() { Geometry = new EllipseGeometry() { RadiusX = 10, RadiusY = 10, Center = new Point(25, 25) }, LineColor = new Pen(new SolidColorBrush(Colors.Blue)), FillColor = new SolidColorBrush(Colors.LightBlue) });
-      
-            drawableComponents.Add(new TestGraphic("name", new TextBlock(),0,true,false,new Point(0,0), Colors.Red, Colors.Red, null, new List<IVisibleComponent>(), graphics));
-
-
-            string type = drawableComponents[0].GeometricObjects[0].Geometry.GetType().ToString();
-
-            //Second Test Object
-            List<Graphic> graphics2 = new List<Graphic>();
-            graphics2.Add(new Graphic() { Geometry = new RectangleGeometry(new Rect(new Point(20, 20), new Point(80, 80))), LineColor = new Pen(new SolidColorBrush(Colors.Green)), FillColor = new SolidColorBrush(Colors.LightGreen) });
-            drawableComponents.Add(new TestGraphic("name", new TextBlock(), 0, true, false, new Point(0, 0), Colors.Green, Colors.Green, null, new List<IVisibleComponent>(), graphics2));
-
+           
 
 
 
@@ -112,10 +100,43 @@ namespace ISim.ViewModels.SchematicEditor
         {
             if (DataContext is SchematicEditorWindowViewModel)
             {
-                (DataContext as SchematicEditorWindowViewModel).PaintControl = this;
+                (DataContext as SchematicEditorWindowViewModel).SetPaintControl(this);
                 viewModel = (DataContext as SchematicEditorWindowViewModel);
 
+                // Generate some default data
+                List<Graphic> graphics = new List<Graphic>();
+                graphics.Add(new Graphic() { Geometry = new RectangleGeometry(new Rect(new Point(10, 10), new Point(40, 40))), LineColor = new Pen(new SolidColorBrush(Colors.Red)), FillColor = new SolidColorBrush(Colors.Orange) });
+                graphics.Add(new Graphic() { Geometry = new EllipseGeometry() { RadiusX = 10, RadiusY = 10, Center = new Point(25, 25) }, LineColor = new Pen(new SolidColorBrush(Colors.Blue)), FillColor = new SolidColorBrush(Colors.LightBlue) });
+
+                viewModel.Schematic.Components.Add(new TestGraphic("name", new TextBlock(), 0, true, false, new Point(0, 0), Colors.Red, Colors.Red, null, new List<IVisibleComponent>(), graphics));
+
+
+                string type = viewModel.Schematic.Components[0].GeometricObjects[0].Geometry.GetType().ToString();
+
+                //Second Test Object
+                List<Graphic> graphics2 = new List<Graphic>();
+                graphics2.Add(new Graphic() { Geometry = new RectangleGeometry(new Rect(new Point(20, 20), new Point(80, 80))), LineColor = new Pen(new SolidColorBrush(Colors.Green)), FillColor = new SolidColorBrush(Colors.LightGreen) });
+                viewModel.Schematic.Components.Add(new TestGraphic("name", new TextBlock(), 0, true, false, new Point(0, 0), Colors.Green, Colors.Green, null, new List<IVisibleComponent>(), graphics2));
+
+
+
+                // Generate Some ISimulatableComponents
+                Wire<bool> wire = new Wire<bool>("name", new TextBlock(), 0, true, false, new Point(0, 0), Colors.Green, Colors.Green, null, new List<IVisibleComponent>(),new List<Graphic>())
+                {
+                    Value = false,
+                    Mode = ISim.SchematicEditor.Enum.SignalModes.Bool,
+                    GeometricObjects = [
+                        new Graphic{
+                            Geometry = new LineGeometry(new Point(20, 20), new Point(100,100))
+                        }
+                        ]
+                };
+                wire.Init();
+                viewModel.Schematic.SimulatableComponents.Add(wire);
+
             }
+
+
         }
 
         [Description("This Method is an Event. It will be called when the user moves the Mouse over the Control. When the User press the left button, the System will move the Objects.")]
@@ -140,18 +161,18 @@ namespace ISim.ViewModels.SchematicEditor
             }
 
             // Render the current Line which has to be drawn so that the user se where he paint the line
-            if (drawingLines && lineCompleteDrawn)
+            if (drawingWires && wireCompleteDrawn)
             {
                 if (clipToGrid) 
                 {
-                    Cable currentCable = (Cable)selectedObjects[selectedObjects.Count - 1];
+                    Wire<int> currentCable = (Wire<int>)selectedObjects[selectedObjects.Count - 1];
                     LineGeometry geometry = (LineGeometry)currentCable.GeometricObjects[currentCable.GeometricObjects.Count - 1].Geometry;
                     geometry.EndPoint = surface.convertMousePositionToSurfacePosition(surface.ClipPointToGrid(point.Position));
                     InvalidateVisual();
                 }
                 else 
-                { 
-                    Cable currentCable = (Cable)selectedObjects[selectedObjects.Count - 1];
+                {
+                    Wire<int> currentCable = (Wire<int>)selectedObjects[selectedObjects.Count - 1];
                     LineGeometry geometry = (LineGeometry)currentCable.GeometricObjects[currentCable.GeometricObjects.Count - 1].Geometry;
                     geometry.EndPoint = surface.convertMousePositionToSurfacePosition(point.Position);
                     InvalidateVisual();
@@ -171,9 +192,9 @@ namespace ISim.ViewModels.SchematicEditor
                 //Copy the new Objects to the list.
                 foreach (ADrawableComponent component in selectedObjects)
                 {
-                    drawableComponents.Add(component);
+                    viewModel.Schematic.Components.Add(component);
                 }
-                selectedObjects = new List<ADrawableComponent>();
+                selectedObjects = new List<IVisibleComponent>();
                 movingObjects = false;
                 InvalidateVisual();
             }
@@ -181,11 +202,11 @@ namespace ISim.ViewModels.SchematicEditor
             //When the User wants to Draw a line and click the Left Button ones:
             //Whether the current line is placed on the Surface or a new line will be started.
             //Double Clicking the left mouse Button cause the System to abort the line Drawing Process.
-            if (drawingLines && point.Properties.IsLeftButtonPressed)
+            if (drawingWires && point.Properties.IsLeftButtonPressed)
             {
-                if (lineCompleteDrawn)
+                if (wireCompleteDrawn)
                 {
-                    Cable currentCable = (Cable)selectedObjects[selectedObjects.Count - 1];
+                    Wire<int> currentCable = (Wire<int>)selectedObjects[selectedObjects.Count - 1];
                     LineGeometry geometry = (LineGeometry)currentCable.GeometricObjects[currentCable.GeometricObjects.Count - 1].Geometry; 
                     geometry.EndPoint = surface.convertMousePositionToSurfacePosition(surface.ClipPointToGrid(point.Position));
 
@@ -195,7 +216,7 @@ namespace ISim.ViewModels.SchematicEditor
                         LineColor = new Pen(new SolidColorBrush(Colors.Red)),
                         FillColor = new SolidColorBrush(Colors.Orange)
                     });
-                    lineCompleteDrawn = true;
+                    wireCompleteDrawn = true;
                     InvalidateVisual();
                 }
                 else
@@ -224,32 +245,34 @@ namespace ISim.ViewModels.SchematicEditor
                             FillColor = new SolidColorBrush(Colors.Orange)
                         });
                     }
-                    Cable cable = new Cable("Cable", new TextBlock { Text = "Cable" }, 0, true, false, new Point(0, 0), Colors.Green, Colors.Green, null, new List<IVisibleComponent>(), lineGraphics);
-                    selectedObjects.Add(cable);
-                    lineCompleteDrawn = true;
-                    firstLineToDraw = false;
+                    Wire<int> wire = new Wire<int>("Cable", new TextBlock { Text = "Cable" }, 0, true, false, new Point(0, 0), Colors.Green, Colors.Green, null, new List<IVisibleComponent>(), lineGraphics);
+                    wire.Mode = ISim.SchematicEditor.Enum.SignalModes.Bool;
+                    wire.Init();
+
+                    selectedObjects.Add(wire);
+                    wireCompleteDrawn = true;
+                    firstWireToDraw = false;
                     InvalidateVisual();
                 }
             }
 
             // Gets Called when the pointer is clicked twice:
-            if(drawingLines && e.ClickCount == 2)
+            if(drawingWires && e.ClickCount == 2)
             {
                 // Copying the new Line to the main List of objects
-                foreach (ADrawableComponent component in selectedObjects)
+                foreach (IVisibleComponent component in selectedObjects)
                 {
-                    drawableComponents.Add(component);
+                    viewModel.Schematic.SimulatableComponents.Add((ISimulatableComponent)component);
                 }
-                selectedObjects = new List<ADrawableComponent>();
-                drawingLines = false;
-                lineCompleteDrawn = false;
-                firstLineToDraw = true;
+                selectedObjects = new List<IVisibleComponent>();
+                drawingWires = false;
+                wireCompleteDrawn = false;
+                firstWireToDraw = true;
                 InvalidateVisual();
             }
 
         }
       
-        
         private void PaintControl_PointerReleased(object? sender, Avalonia.Input.PointerReleasedEventArgs e)
         {
         }
@@ -264,24 +287,20 @@ namespace ISim.ViewModels.SchematicEditor
             InvalidateVisual();
         }
 
-
         private void PaintControl_PointerCaptureLost(object? sender, PointerCaptureLostEventArgs e)
         {
         }
 
         private void PaintControl_SizeChanged(object? sender, SizeChangedEventArgs e)
-        {
-           
+        { 
         }
 
         private void PaintControl_KeyDown(object? sender, KeyEventArgs e)
         {
-           
         }
 
         private void PaintControl_KeyUp(object? sender, KeyEventArgs e)
         {
-           
         }
 
         public void HomeScreen()
@@ -296,9 +315,9 @@ namespace ISim.ViewModels.SchematicEditor
             movingSurface = false;
             dragAndDrop = false;
             movingObjectsWithHoldingBTN = false;
-            drawingLines = false;
-            lineCompleteDrawn = false;
-            selectedObjects = new List<ADrawableComponent> { componentToAdd };
+            drawingWires = false;
+            wireCompleteDrawn = false;
+            selectedObjects = new List<IVisibleComponent> { componentToAdd };
         }
         public void DrawNewLine()
         {
@@ -307,21 +326,29 @@ namespace ISim.ViewModels.SchematicEditor
             movingSurface = false;
             dragAndDrop = false;
             movingObjectsWithHoldingBTN = false;
-            drawingLines = true;
-            lineCompleteDrawn = false;
-            selectedObjects = new List<ADrawableComponent> ();
+            drawingWires = true;
+            wireCompleteDrawn = false;
+            selectedObjects = new List<IVisibleComponent> ();
         }
-
+        public void Redraw()
+        {
+            
+        }
         /// <summary>
         /// Render the saved graphic, and marquee when needed
         /// </summary>
         /// <param name="context"></param>
         public override void Render(DrawingContext context)
         {
+           // if(viewModel != null) if(viewModel.SimulationController != null) viewModel.SimulationController.UpdateDrawingOptions(context, surface, this.Bounds);
             
             context.DrawRectangle(new Pen(new SolidColorBrush(Color.FromRgb(128, 128, 128)), 2), new Rect(new Point(Bounds.Left, Bounds.Top), new Point(Bounds.Right, Bounds.Bottom)));
             DrawHVLines(context);
-            foreach (ADrawableComponent component in drawableComponents)
+            foreach (ADrawableComponent component in viewModel.Schematic.Components)
+            {
+                component.Draw(context, surface, this.Bounds);
+            }
+            foreach(ISimulatableComponent component in viewModel.Schematic.SimulatableComponents)
             {
                 component.Draw(context, surface, this.Bounds);
             }

@@ -40,16 +40,11 @@ namespace ISim.SchematicEditor.Graphic
             Childs = childs;
             GeometricObjects = geometricObjects;
         }
-
+        //test
         public void Draw(DrawingContext context, Surface surface, Rect controlBounds)
         {
             if (Visible && context != null)
             {
-                //foreach(var child in Childs) child.Draw(context);
-
-                //Caption.Margin = new Thickness(Position.X, Position.Y, 0, 0);
-                //Caption.Render(context);
-
                 // Set the drawing Color to the Drawing helper... The Color will be not used for the Graphic objects
 
                 GeometryDrawing drawing = new GeometryDrawing
@@ -61,8 +56,7 @@ namespace ISim.SchematicEditor.Graphic
                 //Draw each Geometric Object
                 foreach(Graphic graphic in graphics)
                 {
-
-                    if(graphic.Geometry.Bounds.TopLeft.X >= 0 && graphic.Geometry.Bounds.TopLeft.Y >= 0 && graphic.Geometry.Bounds.BottomRight.X <= controlBounds.Width && graphic.Geometry.Bounds.BottomRight.Y <= controlBounds.Height) 
+                    if(graphic.Geometry.Bounds.TopLeft.X >= 0 && graphic.Geometry.Bounds.TopLeft.Y >= 0 && (graphic.Geometry.Bounds.BottomRight.X <= controlBounds.Width || graphic.Geometry.Bounds.BottomRight.Y <= controlBounds.Height)) 
                     { 
                         drawing.Brush = graphic.FillColor;
                         drawing.Pen = graphic.LineColor;

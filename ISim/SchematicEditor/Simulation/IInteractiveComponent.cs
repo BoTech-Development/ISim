@@ -14,7 +14,7 @@ using System.ComponentModel;
  */
 namespace ISim.SchematicEditor.Simulation
 {
-    public interface IOUserInterface : IOComponent
+    public interface IInteractiveComponent : IOComponent
     {
 
         [Description("This Property descripe in which Field's (rect's) the User can click. When the Subclass for instance represents an ToggleSwitch, the User can click on the Toggle to chanche the Position of the switch.")]

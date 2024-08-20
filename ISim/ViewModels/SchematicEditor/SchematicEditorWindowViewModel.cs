@@ -1,6 +1,8 @@
 ﻿using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Media;
+using ISim.SchematicEditor.Model;
+using ISim.SchematicEditor.Simulation;
 using ReactiveUI;
 using System;
 using System.Collections.Generic;
@@ -70,6 +72,13 @@ namespace ISim.ViewModels.SchematicEditor
             set => this.RaiseAndSetIfChanged(ref _tabTemplates, value);
         }
 
+        private bool _isSimulationEnabled = false;
+        public bool IsSimulationEnabled
+        {
+            get => _isSimulationEnabled;
+            set => this.RaiseAndSetIfChanged(ref _isSimulationEnabled, value);
+        }
+
 
         public ReactiveCommand<Unit, Unit> PaneMenuCommand { get; set; }
         public ReactiveCommand<int, Unit> ButtonMenuCommand { get; set; }
@@ -77,7 +86,14 @@ namespace ISim.ViewModels.SchematicEditor
 
         public ReactiveCommand<Unit, Unit> DrawLineCommand { get; set; }
 
+        public ReactiveCommand<Unit, Unit> SimulationCommand { get; set; }
+        public ReactiveCommand<Unit, Unit> ResetCommand { get; set; }
+
         public PaintControl PaintControl { get; set; }
+       
+        public SimulationController SimulationController { get; set; }
+        
+        public Schematic Schematic { get; set; }
 
         private int _zoom = 10;
         public int Zoom
@@ -87,77 +103,44 @@ namespace ISim.ViewModels.SchematicEditor
         }
 
 
-
-
-
-
         public SchematicEditorWindowViewModel()
         {
-            
+
+            Schematic = new Schematic();
             PaneMenuCommand = ReactiveCommand.Create(() => { IsPaneOpen = !IsPaneOpen; if (IsPaneOpen) { MenuOpenButtonWidth = 144; MenuMargin = 10; } else MenuOpenButtonWidth = 44; MenuMargin = 0; });
            // ButtonMenuCommand = ReactiveCommand.Create<int>(ShowPage);
 
-            Canvas myCanvas1 = new Canvas();
-            myCanvas1.Background = Brushes.Red;
-            myCanvas1.Height = 100;
-            myCanvas1.Width = 100;
-            Canvas.SetTop(myCanvas1, 0);
-            Canvas.SetLeft(myCanvas1, 0);
-
-            Canvas myCanvas2 = new Canvas();
-            myCanvas2.Background = Brushes.Green;
-            myCanvas2.Height = 100;
-            myCanvas2.Width = 100;
-            Canvas.SetTop(myCanvas2, 100);
-            Canvas.SetLeft(myCanvas2, 100);
-
-            Canvas myCanvas3 = new Canvas();
-            myCanvas3.Background = Brushes.Blue;
-            myCanvas3.Height = 100;
-            myCanvas3.Width = 100;
-            Canvas.SetTop(myCanvas3, 50);
-            Canvas.SetLeft(myCanvas3, 50);
-
-            // Add child elements to the Canvas' Children collection
-            /*Surface = new Canvas();
-
-            Surface.Children.Add(myCanvas1);
-            Surface.Children.Add(myCanvas2);
-            Surface.Children.Add(myCanvas3);
-            */
-
             HomePositionCommand = ReactiveCommand.Create(() => { PaintControl.HomeScreen(); });
             DrawLineCommand = ReactiveCommand.Create(() => { PaintControl.DrawNewLine(); });
+            SimulationCommand = ReactiveCommand.Create(() => 
+            {
+                if (SimulationController != null)
+                {
+                    PaintControl.InvalidateVisual();
+                    SimulationController.EnableDisableSimulation(!IsSimulationEnabled);
+                    IsSimulationEnabled = !IsSimulationEnabled;
+                    SimulationController.RunSimulation();
+                    //SimulationController.TickSimulation(); 
+                    // PaintControl.InvalidateVisual();
+                }
+            });
         }
 
+        public void SetPaintControl(PaintControl paintControl)
+        {
+            PaintControl = paintControl;
+            InitSimualtion();
+        }
+        private void InitSimualtion()
+        {
+            SimulationController = new SimulationController(Schematic, PaintControl);
+        }
 
         public void setObjectBrowser(ObjectBrowserViewModel objectBrowser)
         {
             this.ObjectBrowser = objectBrowser;
         }
 
-       /* public void ShowPage(int pageID)
-        {
-            switch (pageID)
-            {
-                case 0:
-                    Content = new HomeViewModel();
-                    break;
-                case 1:
-                    Content = new NewProjectViewModel();
-                    break;
-                case 2:
-                    Content = new HomeViewModel();
-                    break;
-                case 3:
-                    Content = new HomeViewModel();
-                    break;
-                case 4:
-                    Content = new SettingsViewModel();
-                    break;
-            }
-        }*/
-        
         public void OpenSolution(string path, string file)
         {
 

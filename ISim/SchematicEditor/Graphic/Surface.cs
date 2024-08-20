@@ -105,10 +105,10 @@ namespace ISim.SchematicEditor.Graphic
             }
             return result;
         }
-        public List<ADrawableComponent> changePositionTo(List<ADrawableComponent> components, Point newPos)
+        public List<IVisibleComponent> changePositionTo(List<IVisibleComponent> components, Point newPos)
         {
-            List<ADrawableComponent> result = new List<ADrawableComponent>();
-            foreach (ADrawableComponent component in components)
+            List<IVisibleComponent> result = new List<IVisibleComponent>();
+            foreach (IVisibleComponent component in components)
             {
                 List<Graphic> resultGraphics = new List<Graphic>();
                 foreach (Graphic graphic in component.GeometricObjects)

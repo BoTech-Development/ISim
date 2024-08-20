@@ -4,7 +4,7 @@ namespace ISim.SchematicEditor.Enum
 {
     public enum SignalModes
     {
-        None = 0, BOOL = 1, TRIState = 2, Analog = 3, Userdefined = 4
+        None = 0, Bool = 1, TRI_State = 2, Analog = 3, Userdefined = 4
     }
     public enum SignalModesPins
     {
