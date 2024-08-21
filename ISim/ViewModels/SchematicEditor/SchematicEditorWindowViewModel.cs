@@ -79,6 +79,12 @@ namespace ISim.ViewModels.SchematicEditor
             set => this.RaiseAndSetIfChanged(ref _isSimulationEnabled, value);
         }
 
+        private bool _isClipToGridForWiresEnabled = false;
+        public bool IsClipToGridForWiresEnabled
+        {
+            get => _isClipToGridForWiresEnabled;
+            set => this.RaiseAndSetIfChanged(ref _isClipToGridForWiresEnabled, value);
+        }
 
         public ReactiveCommand<Unit, Unit> PaneMenuCommand { get; set; }
         public ReactiveCommand<int, Unit> ButtonMenuCommand { get; set; }

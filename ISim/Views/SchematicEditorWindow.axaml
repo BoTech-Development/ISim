@@ -8,7 +8,8 @@
 		xmlns:vm="clr-namespace:ISim.ViewModels.SchematicEditor"
 		xmlns:controls="clr-namespace:ISim.ViewModels.SchematicEditor"
 		x:DataType="vm:SchematicEditorWindowViewModel"
-        Title="ISim-SchematicEditor">
+        Title="ISim-SchematicEditor"
+		Icon="/Assets/Logos/ISimLogoNewSmall.png">
 	<Design.DataContext>
 		<vm:SchematicEditorWindowViewModel/>
 	</Design.DataContext>
@@ -59,7 +60,6 @@
 					</MenuItem>
 				</Menu>
 				<Button Command="{Binding HomePositionCommand}" >Home Position</Button>
-				<Button Command="{Binding DrawLineCommand}" >Draw Line</Button>
 			</StackPanel>
 			<Grid Grid.Row="1" x:Name="PaintControlGrid">
 				<Grid.ColumnDefinitions>
@@ -81,7 +81,14 @@
 				</StackPanel>
 			</Button>
 			<Button>Reset</Button>
-			
+			<Button Command="{Binding DrawLineCommand}">
+				<StackPanel>
+					<TextBlock>Draw Wire</TextBlock>
+					<TextBlock FontSize="8" Foreground="Gray">Clip to Grid:</TextBlock>
+					<ToggleSwitch Foreground="Gray" IsChecked="{Binding IsClipToGridForWiresEnabled}"></ToggleSwitch>
+				</StackPanel>
+			</Button>
+		
 		</StackPanel>
 		
 	</Grid>

@@ -49,11 +49,12 @@ namespace ISim.ViewModels.SchematicEditor
         private bool wireCompleteDrawn = false;
         [Description("This Flag is true when the user click the button to draw a new Line. When the first Part of the Line has been Drawn the flag goes false.")]
         private bool firstWireToDraw = true;
-        [Description("Is true when the cursor will automaticly moved to the cross of the Grid.")]
-        private bool clipToGrid = true;
+        // [Description("Is true when the cursor will automaticly moved to the cross of the Grid.")]
+        //private bool clipToGrid = false;  OBSOLETE => Property has moved in the Schematic Editor View Model (IsClipToGridForWiresEnabled)
+
 
         [Description("This Property stores the old Mouse postion.")]
-        private Point oldMousPosition;
+         private Point oldMousPosition;
 
         [Description("All pins where the Wire can connect to.")]
         private List<ADrawableComponent> connectablePins = new List<ADrawableComponent>();
@@ -165,7 +166,7 @@ namespace ISim.ViewModels.SchematicEditor
             // Render the current Line which has to be drawn so that the user se where he paint the line
             if (drawingWires && wireCompleteDrawn)
             {
-                if (clipToGrid) 
+                if (viewModel.IsClipToGridForWiresEnabled) 
                 {
                     Wire<bool> currentCable = (Wire<bool>)selectedObjects[selectedObjects.Count - 1];
                     LineGeometry geometry = (LineGeometry)currentCable.GeometricObjects[currentCable.GeometricObjects.Count - 1].Geometry;
@@ -208,55 +209,112 @@ namespace ISim.ViewModels.SchematicEditor
             {
                 if (wireCompleteDrawn)
                 {
-                    Point ClipToGrid = surface.convertMousePositionToSurfacePosition(surface.ClipPointToGrid(point.Position));
-
-                    IVisibleComponent currentCable = selectedObjects[selectedObjects.Count - 1];
-                    LineGeometry geometry = (LineGeometry)currentCable.GeometricObjects[currentCable.GeometricObjects.Count - 1].Geometry; 
-                    geometry.EndPoint = ClipToGrid;
-
-                    // Check if Current Position is on a connectable Pin and Connect the current Wire to that Pin
-                    foreach(ADrawableComponent pin in connectablePins)
+                    if (viewModel.IsClipToGridForWiresEnabled)
                     {
-                        if(pin is Pin<bool> && currentCable is Wire<bool>)
+                        // Clip to Grid Point enabled
+                        Point ClipToGrid = surface.convertMousePositionToSurfacePosition(surface.ClipPointToGrid(point.Position));
+
+                        IVisibleComponent currentCable = selectedObjects[selectedObjects.Count - 1];
+                        LineGeometry geometry = (LineGeometry)currentCable.GeometricObjects[currentCable.GeometricObjects.Count - 1].Geometry;
+                        geometry.EndPoint = ClipToGrid;
+
+                        // Check if Current Position is on a connectable Pin and Connect the current Wire to that Pin
+                        foreach (ADrawableComponent pin in connectablePins)
                         {
-                            // Check if the User clicks to the correct Position
-                            if (((Pin<bool>)pin).isMousPointInRange(ClipToGrid))
+                            if (pin is Pin<bool> && currentCable is Wire<bool>)
                             {
-                                // Add the new Wire.
-                                ((Pin<bool>)pin).ConnectedWires.Add((Wire<bool>)currentCable);
-                                // Let the Pin Remove the second Circle
-                                ((Pin<bool>)pin).Init();
-                                break;
+                                // Check if the User clicks to the correct Position
+                                if (((Pin<bool>)pin).isMousPointInRange(ClipToGrid))
+                                {
+                                    // Add the new Wire.
+                                    ((Pin<bool>)pin).ConnectedWires.Add((Wire<bool>)currentCable);
+                                    // Let the Pin Remove the second Circle
+                                    ((Pin<bool>)pin).Init();
+                                    break;
+                                }
+                            }
+                            else if (pin is Pin<int> && currentCable is Wire<int>)
+                            {
+                                if (((Pin<int>)pin).isMousPointInRange(ClipToGrid))
+                                {
+                                    ((Pin<int>)pin).ConnectedWires.Add((Wire<int>)currentCable);
+                                    ((Pin<int>)pin).Init();
+                                    break;
+                                }
+                            }
+                            else if (pin is Pin<float> && currentCable is Wire<float>)
+                            {
+                                if (((Pin<float>)pin).isMousPointInRange(ClipToGrid))
+                                {
+                                    ((Pin<float>)pin).ConnectedWires.Add((Wire<float>)currentCable);
+                                    ((Pin<float>)pin).Init();
+                                    break;
+                                }
                             }
                         }
-                        else if (pin is Pin<int> && currentCable is Wire<int>)
+
+                        currentCable.GeometricObjects.Add(new Graphic
                         {
-                            if (((Pin<int>)pin).isMousPointInRange(ClipToGrid))
-                            {
-                                ((Pin<int>)pin).ConnectedWires.Add((Wire<int>)currentCable);
-                                ((Pin<int>)pin).Init();
-                                break;
-                            }
-                        }
-                        else if(pin is Pin<float> && currentCable is Wire<float>)
-                        {
-                            if (((Pin<float>)pin).isMousPointInRange(ClipToGrid))
-                            {
-                                ((Pin<float>)pin).ConnectedWires.Add((Wire<float>)currentCable);
-                                ((Pin<float>)pin).Init();
-                                break ;
-                            }
-                        }
+                            Geometry = new LineGeometry(ClipToGrid, ClipToGrid),
+                            LineColor = new Pen(new SolidColorBrush(Colors.Red)),
+                            FillColor = new SolidColorBrush(Colors.Orange)
+                        });
+                        wireCompleteDrawn = true;
+                        InvalidateVisual();
                     }
-
-                    currentCable.GeometricObjects.Add(new Graphic
+                    else
                     {
-                        Geometry = new LineGeometry(surface.convertMousePositionToSurfacePosition(surface.ClipPointToGrid(point.Position)), surface.convertMousePositionToSurfacePosition(surface.ClipPointToGrid(point.Position))),
-                        LineColor = new Pen(new SolidColorBrush(Colors.Red)),
-                        FillColor = new SolidColorBrush(Colors.Orange)
-                    });
-                    wireCompleteDrawn = true;
-                    InvalidateVisual();
+                        // Clip To Grid disabled:
+                        Point pos = surface.convertMousePositionToSurfacePosition(point.Position);
+
+                        IVisibleComponent currentCable = selectedObjects[selectedObjects.Count - 1];
+                        LineGeometry geometry = (LineGeometry)currentCable.GeometricObjects[currentCable.GeometricObjects.Count - 1].Geometry;
+                        geometry.EndPoint = pos;
+
+                        // Check if Current Position is on a connectable Pin and Connect the current Wire to that Pin
+                        foreach (ADrawableComponent pin in connectablePins)
+                        {
+                            if (pin is Pin<bool> && currentCable is Wire<bool>)
+                            {
+                                // Check if the User clicks to the correct Position
+                                if (((Pin<bool>)pin).isMousPointInRange(pos))
+                                {
+                                    // Add the new Wire.
+                                    ((Pin<bool>)pin).ConnectedWires.Add((Wire<bool>)currentCable);
+                                    // Let the Pin Remove the second Circle
+                                    ((Pin<bool>)pin).Init();
+                                    break;
+                                }
+                            }
+                            else if (pin is Pin<int> && currentCable is Wire<int>)
+                            {
+                                if (((Pin<int>)pin).isMousPointInRange(pos))
+                                {
+                                    ((Pin<int>)pin).ConnectedWires.Add((Wire<int>)currentCable);
+                                    ((Pin<int>)pin).Init();
+                                    break;
+                                }
+                            }
+                            else if (pin is Pin<float> && currentCable is Wire<float>)
+                            {
+                                if (((Pin<float>)pin).isMousPointInRange(pos))
+                                {
+                                    ((Pin<float>)pin).ConnectedWires.Add((Wire<float>)currentCable);
+                                    ((Pin<float>)pin).Init();
+                                    break;
+                                }
+                            }
+                        }
+
+                        currentCable.GeometricObjects.Add(new Graphic
+                        {
+                            Geometry = new LineGeometry(pos, pos),
+                            LineColor = new Pen(new SolidColorBrush(Colors.Red)),
+                            FillColor = new SolidColorBrush(Colors.Orange)
+                        });
+                        wireCompleteDrawn = true;
+                        InvalidateVisual();
+                    }
                 }
                 else
                 {
@@ -266,7 +324,7 @@ namespace ISim.ViewModels.SchematicEditor
                     
                     // Add a new Line with dynamic endpooint. => the Endpoint refers to the Mouse Position.
                     List<Graphic> lineGraphics = new List<Graphic>(); // This List stores all sub Lines
-                    if (clipToGrid)
+                    if (viewModel.IsClipToGridForWiresEnabled)
                     {
                         lineGraphics.Add(new Graphic
                         {
