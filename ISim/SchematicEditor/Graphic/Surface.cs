@@ -30,15 +30,11 @@ namespace ISim.SchematicEditor.Graphic
 
         public void DragSurface(Point oldMousePosition, Point newMousePosition)
         {
-            Debug.WriteLine("New Pos: " + newMousePosition.ToString());
-            Debug.WriteLine("Old Pos: " + oldMousePosition.ToString());
             Point actualOldMousePos = convertMousePositionToSurfacePosition(oldMousePosition);
             Point actualNewMousePos = convertMousePositionToSurfacePosition(newMousePosition);
 
             startPoint.X = startPoint.X + (int)(newMousePosition.X - oldMousePosition.X);
             startPoint.Y = startPoint.Y + (int)(newMousePosition.Y - oldMousePosition.Y);
-
-            Debug.WriteLine( "Start Point: " + startPoint.ToString());
         }
 
         public void Reset()

@@ -150,10 +150,20 @@ namespace ISim.ViewModels.SchematicEditor
             //Drag the Surface to the given Position
             if (movingSurface) 
             {
-                Point newMousePosition = e.GetPosition(this);
-                surface.DragSurface(oldMousPosition,newMousePosition);
-                oldMousPosition = newMousePosition;
-                InvalidateVisual();
+                if (viewModel.IsClipToGridForEditorEnabled)
+                {
+                    Point newMousePosition = e.GetPosition(this);
+                    surface.DragSurface(surface.ClipPointToGrid(oldMousPosition), surface.ClipPointToGrid(newMousePosition));
+                    oldMousPosition = newMousePosition;
+                    InvalidateVisual();
+                }
+                else
+                {
+                    Point newMousePosition = e.GetPosition(this);
+                    surface.DragSurface(oldMousPosition, newMousePosition);
+                    oldMousPosition = newMousePosition;
+                    InvalidateVisual();
+                }
             }
             // Move the objects to thge given mouse Position
             if (movingObjects)

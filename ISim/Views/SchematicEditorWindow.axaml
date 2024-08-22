@@ -14,16 +14,8 @@
 		<vm:SchematicEditorWindowViewModel/>
 	</Design.DataContext>
 	<Window.Styles>
-		<Style Selector="Button">
-			<Setter Property="Background" Value="#353535"/>
-			<Setter Property="Foreground" Value="#a5a5a5"/>
-			<Setter Property="FontWeight" Value="Bold"/>
-			<Setter Property="HorizontalAlignment" Value="Center"/>
-		</Style>
-		<Style Selector="Menu">
-			<Setter Property="Background" Value="#252525"/>
-			<Setter Property="Foreground" Value="#a5a5a5"/>
-		</Style>
+		
+
 	</Window.Styles>
 	<Grid Background="#1e1e1e">
 		
@@ -56,6 +48,14 @@
 					</MenuItem>
 					<MenuItem Header="_View">
 						<MenuItem Header="ObjectBrowser"/>
+						<MenuItem Header=""/>
+					</MenuItem>
+					<MenuItem Header="_Settings">
+						<MenuItem> 
+							<MenuItem.Header>
+								<ToggleSwitch Foreground="Gray" IsChecked="{Binding IsClipToGridForEditorEnabled}">Clip to Grid (Editor)</ToggleSwitch>
+							</MenuItem.Header>
+						</MenuItem>
 						<MenuItem Header=""/>
 					</MenuItem>
 				</Menu>

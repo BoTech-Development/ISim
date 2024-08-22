@@ -9,6 +9,19 @@
 	</Application.DataTemplates>
     <Application.Styles>
         <FluentTheme />
+		<Style Selector="Button">
+			<Setter Property="Background" Value="#353535"/>
+			<Setter Property="Foreground" Value="#a5a5a5"/>
+			<Setter Property="FontWeight" Value="Bold"/>
+			<Setter Property="HorizontalAlignment" Value="Center"/>
+		</Style>
+		<Style Selector="Menu">
+			<Setter Property="Background" Value="#252525"/>
+			<Setter Property="Foreground" Value="#a5a5a5"/>
+		</Style>
+		<Style Selector="MenuItem">
+			<Setter Property="Foreground" Value="#a5a5a5"/>
+		</Style>
     </Application.Styles>
 	<Application.Resources>
 		<!-- These Icons are from WWW:GETBOOTSTRAP:COM-->
