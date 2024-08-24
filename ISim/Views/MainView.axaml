@@ -78,7 +78,7 @@
 				</Border>
 			</SplitView.Content>
 		</SplitView>
-		<TextBlock Grid.Row="2" FontSize="16" Foreground="Gray">Status: Initialization; Version: v1.0.9</TextBlock>
+		<TextBlock Grid.Row="2" FontSize="16" Foreground="Gray">Status: Initialization; Version: v1.0.10</TextBlock>
 
 	</Grid>
 </UserControl>
