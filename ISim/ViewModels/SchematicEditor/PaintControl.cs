@@ -39,11 +39,15 @@ namespace ISim.ViewModels.SchematicEditor
         private bool movingObjects = false;
         [Description("This Property is true, when the User has to hold the Right mouse Butten, to move the selected Object.")]
         private bool movingObjectsWithHoldingBTN = false;
-        [Description("Is true when the user has selected some Onjects with the Select Rectangle.")]
-        private bool objectSelected = false;
-        [Description("Copy of all Selected Objects. It can be the drag and drop Objects or the selected one. No deep copy, reference only.")]
-        private List<IVisibleComponent> selectedObjects = new List<IVisibleComponent>();
-        [Description("")]
+        [Description("Is true when the user has selected some Objects with the Select Rectangle.")]
+        private bool selectingComponents = false;
+        [Description("The Rect which will be displayed when the user tries to Select some Objects.")]
+        private Graphic selectionRectangle = new Graphic();
+        [Description("All components which the user selected whit the rectangle or with the Shift key.")]
+        private List<IVisibleComponent> selectedComponents = new List<IVisibleComponent>();
+        [Description("All components that are not yet part of the circuit diagram or are in the process of being changed.")]
+        private List<IVisibleComponent> chachedComponents = new List<IVisibleComponent>();
+        [Description("Copy of the new Components which has to be placed.")]
         private List<IVisibleComponent> copyOfSelectedObjects = new List<IVisibleComponent>();
         [Description("If this Flag is true the user want to drwa line. ")]
         private bool drawingWires = false;
@@ -93,8 +97,6 @@ namespace ISim.ViewModels.SchematicEditor
             surface.Zoom = 10;
         
         }
-
-
 
         [Description("This Method is an Event. It will be called when Avalonia has set the new pointer of the SchematicEditorViewModel to the DataContext. ")]
         private void PaintControl_DataContextChanged(object? sender, EventArgs e)
@@ -149,6 +151,15 @@ namespace ISim.ViewModels.SchematicEditor
         {
             PointerPoint point = e.GetCurrentPoint(this);
             movingSurface = point.Properties.IsMiddleButtonPressed;
+
+            // If the user selects components, the rectangle must be redrawn and the position updated.
+            if (selectingComponents)
+            {
+                RectangleGeometry geometry = (RectangleGeometry)selectionRectangle.Geometry;
+                selectionRectangle.Geometry = new RectangleGeometry(new Rect(geometry.Rect.TopLeft, surface.ClipPointToGrid(point.Position)));
+                InvalidateVisual();
+            }
+
             //Drag the Surface to the given Position
             if (movingSurface) 
             {
@@ -177,11 +188,11 @@ namespace ISim.ViewModels.SchematicEditor
                 }
                 if (viewModel.IsClipToGridForEditorEnabled)
                 {
-                    selectedObjects = surface.changeComponentPositionTo(clonedComponents, surface.convertMousePositionToSurfacePosition(surface.ClipPointToGrid(e.GetPosition(this))));
+                    chachedComponents = surface.changeComponentPositionTo(clonedComponents, surface.convertMousePositionToSurfacePosition(surface.ClipPointToGrid(e.GetPosition(this))));
                 }
                 else
                 {
-                    selectedObjects = surface.changeComponentPositionTo(clonedComponents, surface.convertMousePositionToSurfacePosition(e.GetPosition(this)));
+                    chachedComponents = surface.changeComponentPositionTo(clonedComponents, surface.convertMousePositionToSurfacePosition(e.GetPosition(this)));
                 }
                 InvalidateVisual();
             }
@@ -191,14 +202,14 @@ namespace ISim.ViewModels.SchematicEditor
             {
                 if (viewModel.IsClipToGridForWiresEnabled) 
                 {
-                    Wire<bool> currentCable = (Wire<bool>)selectedObjects[selectedObjects.Count - 1];
+                    Wire<bool> currentCable = (Wire<bool>)chachedComponents[chachedComponents.Count - 1];
                     LineGeometry geometry = (LineGeometry)currentCable.GeometricObjects[currentCable.GeometricObjects.Count - 1].Geometry;
                     geometry.EndPoint = surface.convertMousePositionToSurfacePosition(surface.ClipPointToGrid(point.Position));
                     InvalidateVisual();
                 }
                 else 
                 {
-                    Wire<bool> currentCable = (Wire<bool>)selectedObjects[selectedObjects.Count - 1];
+                    Wire<bool> currentCable = (Wire<bool>)chachedComponents[chachedComponents.Count - 1];
                     LineGeometry geometry = (LineGeometry)currentCable.GeometricObjects[currentCable.GeometricObjects.Count - 1].Geometry;
                     geometry.EndPoint = surface.convertMousePositionToSurfacePosition(point.Position);
                     InvalidateVisual();
@@ -208,19 +219,54 @@ namespace ISim.ViewModels.SchematicEditor
 
         public void PaintControl_PointerPressed(object? sender, Avalonia.Input.PointerPressedEventArgs e)
         {
-
+            // Check if the USer wants to move the complete Schematic
             PointerPoint point = e.GetCurrentPoint(this);
             movingSurface = point.Properties.IsMiddleButtonPressed;
+
+            
+
+            // If nothing else is being done and the user presses the left mouse button, the user can select components with the rectangle.
+            if(!movingSurface && !movingObjects && !dragAndDrop && !drawingWires && point.Properties.IsLeftButtonPressed)
+            {
+                if (selectingComponents)
+                {
+                    // Selection fineshed
+                    selectedComponents.Clear();
+                    Rect bounds = new Rect(
+                        surface.convertMousePositionToSurfacePosition(selectionRectangle.Geometry.Bounds.TopLeft),
+                        surface.convertMousePositionToSurfacePosition(selectionRectangle.Geometry.Bounds.BottomRight)
+                        );
+                    selectedComponents = surface.GetSelectedComponentsInRange(bounds, viewModel.Schematic);
+                    foreach(IVisibleComponent component in selectedComponents)
+                    {
+                        component.Selected = true;
+                    }
+                    selectingComponents = false;
+                    InvalidateVisual();
+                }
+                else
+                {
+                    // Start a new selection
+                    Point p = surface.ClipPointToGrid(point.Position);
+                    selectingComponents = true;
+                    selectionRectangle = new Graphic()
+                    {
+                        FillColor = new SolidColorBrush(Colors.Green, 150),
+                        LineColor = new Pen(new SolidColorBrush(Colors.Green)),
+                        Geometry = new RectangleGeometry(new Rect(p, p))
+                    };
+                }
+            }
 
             // Abort the moving Objects scene when left button is Pressed
             if (movingObjects && point.Properties.IsLeftButtonPressed)
             {
                 //Copy the new Objects to the list.
-                foreach (ADrawableComponent component in selectedObjects)
+                foreach (ADrawableComponent component in chachedComponents)
                 {
                     viewModel.Schematic.Components.Add(component);
                 }
-                selectedObjects = new List<IVisibleComponent>();
+                chachedComponents = new List<IVisibleComponent>();
                 copyOfSelectedObjects = new List<IVisibleComponent>();
                 movingObjects = false;
                 InvalidateVisual();
@@ -238,7 +284,7 @@ namespace ISim.ViewModels.SchematicEditor
                         // Clip to Grid Point enabled
                         Point ClipToGrid = surface.convertMousePositionToSurfacePosition(surface.ClipPointToGrid(point.Position));
 
-                        IVisibleComponent currentCable = selectedObjects[selectedObjects.Count - 1];
+                        IVisibleComponent currentCable = chachedComponents[chachedComponents.Count - 1];
                         LineGeometry geometry = (LineGeometry)currentCable.GeometricObjects[currentCable.GeometricObjects.Count - 1].Geometry;
                         geometry.EndPoint = ClipToGrid;
 
@@ -291,7 +337,7 @@ namespace ISim.ViewModels.SchematicEditor
                         // Clip To Grid disabled:
                         Point pos = surface.convertMousePositionToSurfacePosition(point.Position);
 
-                        IVisibleComponent currentCable = selectedObjects[selectedObjects.Count - 1];
+                        IVisibleComponent currentCable = chachedComponents[chachedComponents.Count - 1];
                         LineGeometry geometry = (LineGeometry)currentCable.GeometricObjects[currentCable.GeometricObjects.Count - 1].Geometry;
                         geometry.EndPoint = pos;
 
@@ -370,7 +416,7 @@ namespace ISim.ViewModels.SchematicEditor
                     wire.Mode = ISim.SchematicEditor.Enum.SignalModes.Bool;
                     wire.Init();
 
-                    selectedObjects.Add(wire);
+                    chachedComponents.Add(wire);
                     wireCompleteDrawn = true;
                     firstWireToDraw = false;
                     InvalidateVisual();
@@ -381,11 +427,11 @@ namespace ISim.ViewModels.SchematicEditor
             if(drawingWires && e.ClickCount == 2)
             {
                 // Copying the new Line to the main List of objects
-                foreach (IVisibleComponent component in selectedObjects)
+                foreach (IVisibleComponent component in chachedComponents)
                 {
                     viewModel.Schematic.SimulatableComponents.Add((ISimulatableComponent)component);
                 }
-                selectedObjects = new List<IVisibleComponent>();
+                chachedComponents = new List<IVisibleComponent>();
                 drawingWires = false;
                 wireCompleteDrawn = false;
                 firstWireToDraw = true;
@@ -429,9 +475,10 @@ namespace ISim.ViewModels.SchematicEditor
             surface.Reset();
             InvalidateVisual();
         }
+
         public void AddNewObject(Type componentTypeToAdd)
         {
-            objectSelected = false;
+            selectingComponents = false;
             movingObjects = true;
             movingSurface = false;
             dragAndDrop = false;
@@ -439,23 +486,20 @@ namespace ISim.ViewModels.SchematicEditor
             drawingWires = false;
             wireCompleteDrawn = false;
             IVisibleComponent component = (IVisibleComponent)Activator.CreateInstance(componentTypeToAdd);
-            selectedObjects = new List<IVisibleComponent> { component };
+            chachedComponents = new List<IVisibleComponent> { component };
             copyOfSelectedObjects = new List<IVisibleComponent> { (IVisibleComponent)component.Clone() };
         }
+
         public void DrawNewLine()
         {
-            objectSelected = false;
+            selectingComponents = false;
             movingObjects = true;
             movingSurface = false;
             dragAndDrop = false;
             movingObjectsWithHoldingBTN = false;
             drawingWires = true;
             wireCompleteDrawn = false;
-            selectedObjects = new List<IVisibleComponent> ();
-        }
-        public void Redraw()
-        {
-            
+            chachedComponents = new List<IVisibleComponent> ();
         }
 
         private void extractConnecttablePins()
@@ -508,9 +552,19 @@ namespace ISim.ViewModels.SchematicEditor
                 }
             }
 
-            foreach (ADrawableComponent component in selectedObjects)
+            foreach (ADrawableComponent component in chachedComponents)
             {
                 component.Draw(context, surface, this.Bounds);
+            }
+            if (selectingComponents)
+            {
+                GeometryDrawing drawing = new GeometryDrawing
+                {
+                    Brush = selectionRectangle.FillColor,
+                    Pen = selectionRectangle.LineColor,
+                    Geometry = selectionRectangle.Geometry,
+                };
+                drawing.Draw(context);
             }
         }
         private void DrawHVLines(DrawingContext context)

@@ -67,11 +67,22 @@ namespace ISim.SchematicEditor.Graphic
                 foreach(Graphic graphic in graphics)
                 {
                     if(graphic.Geometry.Bounds.TopLeft.X >= 0 && graphic.Geometry.Bounds.TopLeft.Y >= 0 && (graphic.Geometry.Bounds.BottomRight.X <= controlBounds.Width || graphic.Geometry.Bounds.BottomRight.Y <= controlBounds.Height)) 
-                    { 
-                        drawing.Brush = graphic.FillColor;
-                        drawing.Pen = graphic.LineColor;
-                        drawing.Geometry = graphic.Geometry;
-                        drawing.Draw(context);
+                    {
+                        if (Selected)
+                        {
+                            // Mark Components when they are Selected.
+                            drawing.Brush = new SolidColorBrush(((SolidColorBrush)graphic.FillColor).Color, 100);
+                            drawing.Pen = graphic.LineColor;
+                            drawing.Geometry = graphic.Geometry;
+                            drawing.Draw(context);
+                        }
+                        else
+                        {
+                            drawing.Brush = graphic.FillColor;
+                            drawing.Pen = graphic.LineColor;
+                            drawing.Geometry = graphic.Geometry;
+                            drawing.Draw(context);
+                        }
                     }
                 }
             }

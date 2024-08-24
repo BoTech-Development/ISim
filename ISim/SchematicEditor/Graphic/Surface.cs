@@ -1,5 +1,7 @@
 ﻿using Avalonia;
 using Avalonia.Media;
+using ISim.SchematicEditor.Model;
+using ISim.SchematicEditor.Simulation;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -152,6 +154,33 @@ namespace ISim.SchematicEditor.Graphic
                 component.GeometricObjects = resultGraphics;
             }
             return components;
+        }
+        public List<IVisibleComponent> GetSelectedComponentsInRange(Rect range, Schematic schematic)
+        {
+            List<IVisibleComponent> result = new List<IVisibleComponent>();
+            foreach (IVisibleComponent component in schematic.Components)
+            {
+                foreach (Graphic graphic in component.GeometricObjects)
+                {
+                    if ((range.TopLeft.X < graphic.Geometry.Bounds.TopLeft.X && range.TopLeft.Y < graphic.Geometry.Bounds.TopLeft.Y) && (range.BottomRight.X > graphic.Geometry.Bounds.BottomRight.X && range.BottomRight.Y > graphic.Geometry.Bounds.BottomRight.Y))
+                    {
+                        result.Add(component);
+                        break;
+                    }
+                }
+            }
+            foreach(ISimulatableComponent simulatableComponent in schematic.Components)
+            {
+                foreach (Graphic graphic in simulatableComponent.GeometricObjects)
+                {
+                    if (graphic.Geometry.Bounds.Contains(range))
+                    {
+                        result.Add(simulatableComponent);
+                        break;
+                    }
+                }
+            }
+            return result;
         }
         public Point ClipPointToGrid(Point point)
         {
