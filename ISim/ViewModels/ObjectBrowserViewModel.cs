@@ -13,6 +13,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ISim.SchematicEditor.Graphic;
 using Avalonia.Controls;
+using ISim.SchematicEditor.Standard;
 
 namespace ISim.ViewModels
 {
@@ -36,11 +37,15 @@ namespace ISim.ViewModels
 
         public ObjectBrowserViewModel(SchematicEditorWindowViewModel viewModel)
         {
+
+            //Type componentType = typeof(Wire<float>);
+            //Wire<int> component =  Convert.ChangeType(Activator.CreateInstance(componentType), componentType);
+
             List<Graphic> graphics = new List<Graphic>();
             graphics.Add(new Graphic() { Geometry = new RectangleGeometry(new Rect(new Point(0, 0), new Point(10, 10))), LineColor = new Pen(new SolidColorBrush(Colors.Red)), FillColor = new SolidColorBrush(Colors.Orange) });
             graphics.Add(new Graphic() { Geometry = new EllipseGeometry() { RadiusX = 10, RadiusY = 10, Center = new Point(5, 5) }, LineColor = new Pen(new SolidColorBrush(Colors.Blue)), FillColor = new SolidColorBrush(Colors.LightBlue) });
 
-            TestGraphic testGraphic = new TestGraphic("name", new TextBlock(), 0, true, false, new Point(0, 0), 0, Colors.Red, Colors.Red, null, new List<IVisibleComponent>(), graphics);
+            TestGraphic testGraphic = new TestGraphic("name", new TextBlock(), 0, true, false, new Point(0, 0), 0, Colors.Red, Colors.Red, null, new List<IVisibleComponent>(), new List<Graphic>());
 
 
 
@@ -48,7 +53,7 @@ namespace ISim.ViewModels
             {
                 new TreeViewNode("74lsxx", "", new ObservableCollection<TreeViewNode>
                 {
-                    new TreeViewNode("74ls08", "", new ObservableCollection<TreeViewNode>(), testGraphic), new TreeViewNode("74ls14", "", new ObservableCollection<TreeViewNode>(), testGraphic), new TreeViewNode("74ls90", "", new ObservableCollection<TreeViewNode>(), testGraphic)
+                    new TreeViewNode("74ls08", "", new ObservableCollection<TreeViewNode>(), typeof(TestGraphic)), new TreeViewNode("74ls14", "", new ObservableCollection<TreeViewNode>(), typeof(TestGraphic)), new TreeViewNode("74ls90", "", new ObservableCollection<TreeViewNode>(), typeof(TestGraphic))
                 }, null)
             };
             this.viewModel = viewModel;
@@ -56,7 +61,7 @@ namespace ISim.ViewModels
             {
                 if(SelectedTreeViewNode != null) 
                 { 
-                    if (viewModel != null) viewModel.PaintControl.AddNewObject(SelectedTreeViewNode.Component);
+                    if (viewModel != null) viewModel.PaintControl.AddNewObject(SelectedTreeViewNode.ComponentType);
                 }
             });
         }

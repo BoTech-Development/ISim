@@ -13,7 +13,7 @@ namespace ISim.ViewModels.ObjectBrowser
         public ObservableCollection<TreeViewNode>? SubNodes { get; set; }
         public String Name { get; set; }
         public String IconSource {  get; set; }
-        public  ADrawableComponent Component { get; set; }
+        public Type ComponentType { get; set; }
 
         public TreeViewNode(string name, string iconSource, ObservableCollection<TreeViewNode> subNodes)
         {
@@ -22,12 +22,12 @@ namespace ISim.ViewModels.ObjectBrowser
             IconSource = iconSource;
             
         }
-        public TreeViewNode(string name, string iconSource, ObservableCollection<TreeViewNode> subNodes, ADrawableComponent component)
+        public TreeViewNode(string name, string iconSource, ObservableCollection<TreeViewNode> subNodes, Type componentType)
         {
             Name = name;
             IconSource = iconSource;
             SubNodes = subNodes;
-            Component = component;
+            ComponentType = componentType;
         }
     }
 }

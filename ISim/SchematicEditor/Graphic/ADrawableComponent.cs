@@ -1,12 +1,15 @@
 ﻿using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Shapes;
+using Avalonia.Layout;
 using Avalonia.Media;
+using Avalonia.Styling;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace ISim.SchematicEditor.Graphic
 {
@@ -43,6 +46,10 @@ namespace ISim.SchematicEditor.Graphic
             Childs = childs;
             GeometricObjects = geometricObjects;
         }
+        protected ADrawableComponent()
+        {
+
+        }
         //test
         public void Draw(DrawingContext context, Surface surface, Rect controlBounds)
         {
@@ -69,5 +76,11 @@ namespace ISim.SchematicEditor.Graphic
                 }
             }
         }
+
+        public object Clone()
+        {
+           throw new NotImplementedException();
+        }
+    
     }
 }

@@ -101,9 +101,8 @@ namespace ISim.SchematicEditor.Graphic
             }
             return result;
         }
-        public List<IVisibleComponent> changePositionTo(List<IVisibleComponent> components, Point newPos)
+        public List<IVisibleComponent> changeComponentPositionTo(List<IVisibleComponent> components, Point newPos)
         {
-            List<IVisibleComponent> result = new List<IVisibleComponent>();
             foreach (IVisibleComponent component in components)
             {
                 List<Graphic> resultGraphics = new List<Graphic>();
@@ -116,7 +115,7 @@ namespace ISim.SchematicEditor.Graphic
                             EllipseGeometry newEllipse = new EllipseGeometry();
                             if (ellipse != null)
                             {
-                                newEllipse.Center = new Point(newPos.X + (component.Position.X - ellipse.Center.X), newPos.Y + (component.Position.Y - ellipse.Center.Y));
+                                newEllipse.Center = newPos + ellipse.Center;
                                 newEllipse.RadiusX = ellipse.RadiusX;
                                 newEllipse.RadiusY = ellipse.RadiusY;
                                 resultGraphics.Add(new Graphic() { Geometry = newEllipse, FillColor = graphic.FillColor, LineColor = graphic.LineColor });
@@ -127,8 +126,8 @@ namespace ISim.SchematicEditor.Graphic
                             LineGeometry newLine = new LineGeometry();
                             if (line != null)
                             {
-                                newLine.StartPoint = getActualPositionOf(line.StartPoint);
-                                newLine.EndPoint = getActualPositionOf(line.EndPoint);
+                                newLine.StartPoint = newPos + line.StartPoint;
+                                newLine.EndPoint = newPos + line.EndPoint;
                                 resultGraphics.Add(new Graphic() { Geometry = newLine, FillColor = graphic.FillColor, LineColor = graphic.LineColor });
                             }
                             break;
@@ -137,7 +136,7 @@ namespace ISim.SchematicEditor.Graphic
                             RectangleGeometry newRect = new RectangleGeometry();
                             if (rect != null)
                             {
-                                newRect.Rect = new Rect(getActualPositionOf(rect.Rect.TopLeft), getActualPositionOf(rect.Rect.BottomRight));
+                                newRect.Rect = new Rect(newPos + rect.Rect.TopLeft, newPos + rect.Rect.BottomRight);
                                 resultGraphics.Add(new Graphic() { Geometry = newRect, FillColor = graphic.FillColor, LineColor = graphic.LineColor });
                             }
                             break;
@@ -147,13 +146,12 @@ namespace ISim.SchematicEditor.Graphic
                         case "Avalonia.Media.StreamGeometry":
                             throw new NotImplementedException();
                             break;
+
                     }
                 }
-                component.Position = newPos;
                 component.GeometricObjects = resultGraphics;
-                result.Add(component);
             }
-            return result;
+            return components;
         }
         public Point ClipPointToGrid(Point point)
         {

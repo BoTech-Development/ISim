@@ -43,6 +43,8 @@ namespace ISim.ViewModels.SchematicEditor
         private bool objectSelected = false;
         [Description("Copy of all Selected Objects. It can be the drag and drop Objects or the selected one. No deep copy, reference only.")]
         private List<IVisibleComponent> selectedObjects = new List<IVisibleComponent>();
+        [Description("")]
+        private List<IVisibleComponent> copyOfSelectedObjects = new List<IVisibleComponent>();
         [Description("If this Flag is true the user want to drwa line. ")]
         private bool drawingWires = false;
         [Description("This Flag goes true when the user click the left Mouse Button two times. By the First Click the Line Draw starts and end by the next click.")]
@@ -168,8 +170,19 @@ namespace ISim.ViewModels.SchematicEditor
             // Move the objects to thge given mouse Position
             if (movingObjects)
             {
-                Point actualPoint = surface.convertMousePositionToSurfacePosition(e.GetPosition(this));
-                surface.changePositionTo(selectedObjects, actualPoint);
+                List<IVisibleComponent> clonedComponents = new List<IVisibleComponent>();
+                foreach (IVisibleComponent component in copyOfSelectedObjects)
+                {
+                    clonedComponents.Add((IVisibleComponent)component.Clone());
+                }
+                if (viewModel.IsClipToGridForEditorEnabled)
+                {
+                    selectedObjects = surface.changeComponentPositionTo(clonedComponents, surface.convertMousePositionToSurfacePosition(surface.ClipPointToGrid(e.GetPosition(this))));
+                }
+                else
+                {
+                    selectedObjects = surface.changeComponentPositionTo(clonedComponents, surface.convertMousePositionToSurfacePosition(e.GetPosition(this)));
+                }
                 InvalidateVisual();
             }
 
@@ -208,6 +221,7 @@ namespace ISim.ViewModels.SchematicEditor
                     viewModel.Schematic.Components.Add(component);
                 }
                 selectedObjects = new List<IVisibleComponent>();
+                copyOfSelectedObjects = new List<IVisibleComponent>();
                 movingObjects = false;
                 InvalidateVisual();
             }
@@ -415,7 +429,7 @@ namespace ISim.ViewModels.SchematicEditor
             surface.Reset();
             InvalidateVisual();
         }
-        public void AddNewObject(ADrawableComponent componentToAdd)
+        public void AddNewObject(Type componentTypeToAdd)
         {
             objectSelected = false;
             movingObjects = true;
@@ -424,7 +438,9 @@ namespace ISim.ViewModels.SchematicEditor
             movingObjectsWithHoldingBTN = false;
             drawingWires = false;
             wireCompleteDrawn = false;
-            selectedObjects = new List<IVisibleComponent> { componentToAdd };
+            IVisibleComponent component = (IVisibleComponent)Activator.CreateInstance(componentTypeToAdd);
+            selectedObjects = new List<IVisibleComponent> { component };
+            copyOfSelectedObjects = new List<IVisibleComponent> { (IVisibleComponent)component.Clone() };
         }
         public void DrawNewLine()
         {

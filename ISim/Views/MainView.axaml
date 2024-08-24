@@ -30,15 +30,6 @@
 			<TextBlock Text="{Binding }" VerticalAlignment="Center"></TextBlock>
 			<Button HorizontalAlignment="Right">Login</Button>
 		</StackPanel>
-
-		<Grid Grid.Row="0">
-			<Grid.ColumnDefinitions>
-				<ColumnDefinition/>
-				<ColumnDefinition/>
-				<ColumnDefinition/>
-				<ColumnDefinition/>
-			</Grid.ColumnDefinitions>
-		</Grid>
 		<SplitView OpenPaneLength="165" DisplayMode="CompactInline" Grid.Row="1" IsPaneOpen="{Binding IsPaneOpen}" PaneBackground="#1e1e1e">
 			<SplitView.Pane>
 				<Border CornerRadius="10" BorderBrush="#2f2f2f" BorderThickness="2" Background="#252525">
@@ -87,7 +78,7 @@
 				</Border>
 			</SplitView.Content>
 		</SplitView>
-		<TextBlock Grid.Row="2" FontSize="16" Foreground="Gray">Status: Initialization; Version: v1.0.8</TextBlock>
+		<TextBlock Grid.Row="2" FontSize="16" Foreground="Gray">Status: Initialization; Version: v1.0.9</TextBlock>
 
 	</Grid>
 </UserControl>

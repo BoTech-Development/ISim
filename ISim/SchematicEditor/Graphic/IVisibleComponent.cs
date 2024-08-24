@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace ISim.SchematicEditor.Graphic
 {
-    public interface IVisibleComponent : ICountableID
+    public interface IVisibleComponent : ICountableID, ICloneable
     {
         
 
